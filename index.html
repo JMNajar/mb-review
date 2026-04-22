@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MB-REVIEW | Methylene Blue Market Intelligence</title>
+  <style>
+    :root {
+      --navy:   #0f2744;
+      --blue:   #1565c0;
+      --light-blue: #e8f0fe;
+      --amber:  #e65100;
+      --green:  #1b5e20;
+      --green-light: #e8f5e9;
+      --amber-light: #fff3e0;
+      --red-light: #ffebee;
+      --red:    #b71c1c;
+      --gray:   #f5f7fa;
+      --border: #dde3ed;
+      --text:   #1a2535;
+      --muted:  #5a6a80;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: #fff; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy); padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    }
+    .nav-brand { color: #fff; font-size: 1.1rem; font-weight: 700; letter-spacing: .08em; padding: 1rem 0; }
+    .nav-brand span { color: #64b5f6; }
+    .nav-links { display: flex; gap: .25rem; }
+    .nav-links a {
+      color: #90caf9; text-decoration: none; font-size: .8rem; font-weight: 600;
+      padding: .5rem .75rem; border-radius: 4px; letter-spacing: .04em;
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,.1); color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a6b 100%);
+      color: #fff; padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .hero-tag {
+      display: inline-block; background: rgba(100,181,246,.2);
+      color: #90caf9; font-size: .75rem; font-weight: 700;
+      letter-spacing: .1em; padding: .35rem .9rem; border-radius: 20px;
+      border: 1px solid rgba(100,181,246,.4); margin-bottom: 1.25rem;
+    }
+    .hero h1 { font-size: 2.6rem; font-weight: 800; line-height: 1.15; margin-bottom: .75rem; }
+    .hero h1 span { color: #64b5f6; }
+    .hero p { color: #90caf9; font-size: 1.05rem; max-width: 640px; margin: 0 auto 2.5rem; }
+    .stat-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: .5rem; }
+    .stat-card {
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px; padding: 1.25rem 1.75rem; min-width: 160px; text-align: center;
+    }
+    .stat-card .num { font-size: 1.9rem; font-weight: 800; color: #fff; }
+    .stat-card .lbl { font-size: .72rem; color: #90caf9; font-weight: 600; letter-spacing: .06em; margin-top: .2rem; }
+
+    /* SECTIONS */
+    section { padding: 4rem 2rem; max-width: 960px; margin: 0 auto; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-tag {
+      display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+      padding: .3rem .8rem; border-radius: 20px; margin-bottom: .75rem;
+    }
+    .tag-blue   { background: var(--light-blue); color: var(--blue); }
+    .tag-green  { background: var(--green-light); color: var(--green); }
+    .tag-amber  { background: var(--amber-light); color: var(--amber); }
+    .tag-red    { background: var(--red-light);   color: var(--red); }
+    h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: .5rem; color: var(--navy); }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; max-width: 720px; }
+
+    /* CARDS */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .card {
+      background: var(--gray); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.25rem;
+    }
+    .card h4 { font-size: .8rem; font-weight: 700; color: var(--muted); letter-spacing: .06em; margin-bottom: .4rem; }
+    .card .val { font-size: 1.5rem; font-weight: 800; color: var(--navy); }
+    .card .sub { font-size: .78rem; color: var(--muted); margin-top: .25rem; }
+
+    /* TABLES */
+    .table-wrap { overflow-x: auto; margin-bottom: 1.5rem; border-radius: 10px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+    thead th {
+      background: var(--navy); color: #fff; text-align: left;
+      padding: .75rem 1rem; font-size: .78rem; font-weight: 700; letter-spacing: .05em;
+    }
+    tbody tr:nth-child(even) { background: var(--gray); }
+    tbody td { padding: .7rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    tbody tr:last-child td { border-bottom: none; }
+
+    /* CALLOUTS */
+    .callout {
+      border-radius: 10px; padding: 1.25rem 1.5rem; margin-top: 1.75rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .callout-green  { background: var(--green-light); border-left: 4px solid #2e7d32; }
+    .callout-amber  { background: var(--amber-light); border-left: 4px solid #e65100; }
+    .callout-blue   { background: var(--light-blue);  border-left: 4px solid var(--blue); }
+    .callout-red    { background: var(--red-light);   border-left: 4px solid var(--red); }
+    .callout-icon   { font-size: 1.4rem; line-height: 1; flex-shrink: 0; }
+    .callout strong { display: block; font-size: .85rem; font-weight: 700; margin-bottom: .3rem; color: var(--navy); }
+    .callout p      { font-size: .88rem; color: var(--text); line-height: 1.55; }
+
+    /* BENEFIT LIST */
+    .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .benefit-item {
+      background: var(--gray); border-radius: 10px; padding: 1.25rem;
+      border-top: 3px solid var(--blue);
+    }
+    .benefit-item h4 { font-size: .9rem; font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+    .benefit-item ul { padding-left: 1.1rem; }
+    .benefit-item li { font-size: .84rem; color: var(--muted); line-height: 1.6; }
+
+    /* RISK BADGE */
+    .risk-high { display: inline-block; background: var(--red-light); color: var(--red); font-weight: 700; font-size: .78rem; padding: .2rem .6rem; border-radius: 4px; }
+    .risk-low  { display: inline-block; background: var(--green-light); color: var(--green); font-weight: 700; font-size: .78rem; padding: .2rem .6rem; border-radius: 4px; }
+    .risk-med  { display: inline-block; background: var(--amber-light); color: var(--amber); font-weight: 700; font-size: .78rem; padding: .2rem .6rem; border-radius: 4px; }
+
+    /* COMPETITOR CARDS */
+    .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .comp-card { background: var(--gray); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; }
+    .comp-card h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: .25rem; }
+    .comp-card .comp-sub { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .comp-row { display: flex; justify-content: space-between; font-size: .82rem; padding: .35rem 0; border-bottom: 1px solid var(--border); }
+    .comp-row:last-child { border-bottom: none; }
+    .comp-row .k { color: var(--muted); }
+    .comp-row .v { font-weight: 600; color: var(--navy); text-align: right; max-width: 60%; }
+
+    /* PRODUCT POSITIONING */
+    .pos-table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+    .pos-table thead th { background: var(--navy); color: #fff; padding: .75rem 1rem; text-align: left; font-size: .78rem; letter-spacing: .05em; }
+    .pos-table thead th:last-child { background: var(--blue); }
+    .pos-table tbody td { padding: .65rem 1rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    .pos-table tbody tr:nth-child(even) td { background: var(--gray); }
+    .pos-table tbody td:last-child { font-weight: 600; color: var(--blue); }
+    .pos-table tbody tr:last-child td { border-bottom: none; }
+
+    /* TIMELINE */
+    .timeline { border-left: 2px solid var(--blue); padding-left: 1.5rem; margin-bottom: 1.5rem; }
+    .tl-item { position: relative; padding-bottom: 1.25rem; }
+    .tl-item::before {
+      content: ''; position: absolute; left: -1.9rem; top: .3rem;
+      width: .7rem; height: .7rem; border-radius: 50%;
+      background: var(--blue); border: 2px solid #fff; box-shadow: 0 0 0 2px var(--blue);
+    }
+    .tl-year { font-size: .78rem; font-weight: 700; color: var(--blue); margin-bottom: .2rem; }
+    .tl-text { font-size: .86rem; color: var(--text); line-height: 1.5; }
+
+    /* FOOTER */
+    footer {
+      background: var(--navy); color: #90caf9;
+      text-align: center; padding: 2rem;
+      font-size: .8rem;
+    }
+    footer strong { color: #fff; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.8rem; }
+      .comp-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">MB<span>-REVIEW</span></div>
+  <div class="nav-links">
+    <a href="#overview">Overview</a>
+    <a href="#market">Market</a>
+    <a href="#regulatory">Regulatory</a>
+    <a href="#competitive">Competitive</a>
+    <a href="#product">Product</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">DEEPER GREEN · MARKET INTELLIGENCE · 2026</div>
+  <h1>Methylene Blue + <span>Vitamin C</span><br>Market Review</h1>
+  <p>Executive resource for Kent Rhodes, CEO — GF Tech One. Compiled by Horsepower AI.</p>
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="num">$43M</div>
+      <div class="lbl">2026 U.S. MARKET EST.</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">15%+</div>
+      <div class="lbl">NOOTROPIC MARKET GROWTH</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">$67B</div>
+      <div class="lbl">LONGEVITY SUPPLEMENT MARKET</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">130+</div>
+      <div class="lbl">YEARS OF MEDICAL USE</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 1: WHAT IS MB -->
+<section id="overview">
+  <div class="section-tag tag-blue">PRODUCT INTELLIGENCE</div>
+  <h2>What Is Methylene Blue</h2>
+  <p class="section-intro">A synthetic compound with over 130 years of documented medical use. One of the first synthetic drugs approved by the FDA. Listed on the WHO's List of Essential Medicines. At its core, a mitochondrial enhancer — it works at the cellular level by improving how the body produces and uses energy.</p>
+
+  <div class="benefit-grid">
+    <div class="benefit-item">
+      <h4>Cognitive Performance</h4>
+      <ul>
+        <li>Improves memory retention and recall</li>
+        <li>Enhances focus and mental clarity</li>
+        <li>Protects against cognitive decline</li>
+        <li>Early Alzheimer's and dementia research</li>
+      </ul>
+    </div>
+    <div class="benefit-item">
+      <h4>Energy & Cellular Health</h4>
+      <ul>
+        <li>Supports mitochondrial function</li>
+        <li>Reduces oxidative stress</li>
+        <li>Improves oxygen utilization at cellular level</li>
+      </ul>
+    </div>
+    <div class="benefit-item">
+      <h4>Mood & Mental Health</h4>
+      <ul>
+        <li>Mild MAOI — elevates serotonin and dopamine</li>
+        <li>Antidepressant properties in clinical studies</li>
+        <li>Being explored for bipolar disorder and anxiety</li>
+      </ul>
+    </div>
+    <div class="benefit-item">
+      <h4>Anti-Aging & Longevity</h4>
+      <ul>
+        <li>Strong antioxidant — slows cellular aging</li>
+        <li>Promotes skin health</li>
+        <li>Gaining traction: Dave Asprey, Peter Attia circles</li>
+      </ul>
+    </div>
+    <div class="benefit-item">
+      <h4>Antimicrobial & Medical</h4>
+      <ul>
+        <li>Surgical dye for tissue identification</li>
+        <li>Antifungal and antibacterial properties</li>
+        <li>Used in photodynamic therapy for certain cancers</li>
+      </ul>
+    </div>
+    <div class="benefit-item">
+      <h4>Why Add Vitamin C</h4>
+      <ul>
+        <li>Complements MB's antioxidant mechanism</li>
+        <li>Unambiguous dietary supplement — no FDA risk</li>
+        <li>Anchors product firmly in supplement territory</li>
+        <li>Familiar to consumers — reduces purchase friction</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">💡</div>
+    <div>
+      <strong>Bottom Line</strong>
+      <p>MB is a clinically validated compound with genuine functional benefits in cognitive performance, energy, and longevity. Pairing it with Vitamin C creates a dual-antioxidant formula that is more defensible legally, more familiar to consumers, and differentiated from every competitor currently in market.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: MARKET -->
+<section id="market">
+  <div class="section-tag tag-green">MARKET SIZE & OPPORTUNITY</div>
+  <h2>U.S. Market Size & Trajectory</h2>
+  <p class="section-intro">The U.S. methylene blue market is a specialty compound serving clinical, lab, industrial, and consumer channels. No single authoritative revenue series exists — this is a triangulated estimate from public market reports, historical production data, and trade intelligence.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>CURRENT U.S. MARKET</h4>
+      <div class="val">$25–$40M</div>
+      <div class="sub">Annual revenue, all channels</div>
+    </div>
+    <div class="card">
+      <h4>2026 U.S. ESTIMATE</h4>
+      <div class="val">$27–$43M</div>
+      <div class="sub">Applying 5–7% CAGR</div>
+    </div>
+    <div class="card">
+      <h4>NORTH AMERICA SHARE</h4>
+      <div class="val">30–35%</div>
+      <div class="sub">Of global demand</div>
+    </div>
+    <div class="card">
+      <h4>ANNUAL VOLUME</h4>
+      <div class="val">40–120 MT</div>
+      <div class="sub">Directional U.S. estimate</div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Market Sizing Anchor</th><th>Public Figure</th><th>Implication for U.S.</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Global market, 2024 (low estimate)</td><td>$71.2M</td><td>Lower-bound anchor for U.S. estimate</td></tr>
+        <tr><td>Global market, 2024 (mid estimate)</td><td>$123.6M</td><td>Mid-case global anchor</td></tr>
+        <tr><td>Global market, 2024 (high estimate)</td><td>$145.2M</td><td>Upper-bound public anchor</td></tr>
+        <tr><td>North America share</td><td>~30–35%</td><td>U.S. is majority of regional demand</td></tr>
+        <tr><td>Working U.S. estimate</td><td>$25–$40M</td><td>Most usable planning range for 2026</td></tr>
+        <tr><td>Historical growth rate</td><td>~5–7% CAGR</td><td>Steady, not explosive — institutional base</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1.1rem; font-weight:700; color:var(--navy); margin-bottom:1rem;">The Larger Opportunity: Adjacent Markets</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Market</th><th>Global Size</th><th>Growth Rate</th><th>MB Relevance</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nootropics / Brain Health</td><td>$6B+</td><td>15%+ annually</td><td>Direct — cognitive performance claims</td></tr>
+        <tr><td>Longevity / Anti-Aging Supplements</td><td>$67B</td><td>Fastest growing wellness segment</td><td>Direct — antioxidant, mitochondrial claims</td></tr>
+        <tr><td>Biohacking / Performance Optimization</td><td>Growing</td><td>Mainstream post-COVID</td><td>Direct — Dave Asprey, Peter Attia audience</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">📈</div>
+    <div>
+      <strong>Bottom Line</strong>
+      <p>The regulated MB market alone is $27–$43M in the U.S. But the real opportunity sits in the adjacent nootropic ($6B) and longevity ($67B) markets — both growing fast. Consumer demand is outpacing regulated supply. MB + Vitamin C positions Deeper Green at the intersection of all three. This is a first-mover window.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: REGULATORY -->
+<section id="regulatory">
+  <div class="section-tag tag-amber">REGULATORY STATUS</div>
+  <h2>FDA Classification of Methylene Blue</h2>
+  <p class="section-intro">The strongest regulatory reading is that methylene blue is a poor fit for the dietary-supplement pathway on its own — and is more securely regulated as a drug when marketed with therapeutic or disease-related claims. Understanding this is critical before product launch.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Classification</th><th>Status</th><th>What It Means</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Approved Prescription Drug</strong></td>
+          <td><span class="risk-low">CONFIRMED</span></td>
+          <td>ProvayBlue approved 2016 (NDA 204630). Generic approved Dec 2023. Rx-only IV for acquired methemoglobinemia.</td>
+        </tr>
+        <tr>
+          <td><strong>Lawful Dietary Supplement</strong></td>
+          <td><span class="risk-high">HIGH RISK</span></td>
+          <td>MB is not obviously a vitamin, mineral, botanical, or amino acid. The 201(ff)(3)(B) approved-drug exclusion likely blocks supplement status. No FDA methylene-blue-specific supplement determination exists.</td>
+        </tr>
+        <tr>
+          <td><strong>Unapproved Drug (with disease claims)</strong></td>
+          <td><span class="risk-high">ENFORCEMENT RISK</span></td>
+          <td>FDA issued 2020 warning letters against firms selling MB with COVID-19 claims. DOJ/FDA-OCI sentenced a couple for selling unapproved MB products.</td>
+        </tr>
+        <tr>
+          <td><strong>OTC Drug / Monograph</strong></td>
+          <td><span class="risk-med">NOT FOUND</span></td>
+          <td>MB does not appear in FDA's OTC Monograph ingredient list. No approved OTC MB product identified.</td>
+        </tr>
+        <tr>
+          <td><strong>Vitamin C (supplement anchor)</strong></td>
+          <td><span class="risk-low">CLEAR</span></td>
+          <td>Definitively a dietary ingredient under DSHEA. No classification risk. Anchors the product in supplement territory.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1.1rem; font-weight:700; color:var(--navy); margin: 1.5rem 0 1rem;">Key FDA Milestones</h3>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-year">2011</div><div class="tl-text">FDA Drug Safety Communication: serious serotonin syndrome risk when MB is combined with serotonergic psychiatric drugs.</div></div>
+    <div class="tl-item"><div class="tl-year">2016</div><div class="tl-text">FDA approves ProvayBlue (NDA 204630) — first FDA-approved treatment for acquired methemoglobinemia.</div></div>
+    <div class="tl-item"><div class="tl-year">2020</div><div class="tl-text">FDA warning letters issued against North Isle Wellness Center and Center for Wellness for selling MB with COVID-19 claims as unapproved new drugs.</div></div>
+    <div class="tl-item"><div class="tl-year">2023</div><div class="tl-text">FDA approves first generic methylene blue injection (ANDA 215636).</div></div>
+    <div class="tl-item"><div class="tl-year">2024</div><div class="tl-text">FDA updates MB label with boxed serotonin-syndrome warning. Final guidance on NDI notification procedures issued.</div></div>
+    <div class="tl-item"><div class="tl-year">2026</div><div class="tl-text">FDA public meeting on dietary supplement ingredient scope (March 2026). MB remains in regulatory gray zone for supplement market.</div></div>
+  </div>
+
+  <h3 style="font-size:1.1rem; font-weight:700; color:var(--navy); margin-bottom:1rem;">Compliance Path for Deeper Green</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Requirement</th><th>Action Needed</th><th>Risk Without It</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Avoid disease claims</td><td>Use structure/function language only: "supports," "promotes," "may help"</td><td>Product classified as unapproved drug — enforcement risk</td></tr>
+        <tr><td>DSHEA disclaimer</td><td>"This statement has not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease."</td><td>Misbranded drug classification</td></tr>
+        <tr><td>SSRI / MAOI warning</td><td>Label must disclose contraindication with serotonergic medications and G6PD deficiency</td><td>Serious safety liability</td></tr>
+        <tr><td>Blue discoloration disclosure</td><td>Inform consumers MB temporarily turns urine and sometimes skin blue/green — harmless</td><td>Consumer complaints, returns, trust damage</td></tr>
+        <tr><td>Legal counsel</td><td>Engage supplement regulatory attorney before launch</td><td>Entire product line at risk</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-amber">
+    <div class="callout-icon">⚠️</div>
+    <div>
+      <strong>Bottom Line</strong>
+      <p>MB carries real regulatory risk as a standalone supplement. The MB + Vitamin C combination reduces exposure because Vitamin C unambiguously qualifies as a dietary ingredient — it anchors the product. The critical rule: <strong>never make disease claims</strong>. Stick to structure/function language, use required disclaimers, and engage a supplement regulatory attorney before launch. Other players are doing this — Troscriptions, aSquared, EttaVita — but they operate in a gray zone. Deeper Green should enter with a cleaner, more defensible label than any of them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: COMPETITIVE -->
+<section id="competitive">
+  <div class="section-tag tag-blue">COMPETITIVE INTELLIGENCE</div>
+  <h2>Who's Already in This Market</h2>
+  <p class="section-intro">Two direct competitors serve the premium wellness / biohacking audience. Both have material weaknesses that create a clear entry point for Deeper Green.</p>
+
+  <div class="comp-grid">
+    <div class="comp-card">
+      <h3>10X Health System</h3>
+      <div class="comp-sub">shop.10xhealthsystem.com</div>
+      <div class="comp-row"><span class="k">Products</span><span class="v">Genetic tests, supplements, equipment</span></div>
+      <div class="comp-row"><span class="k">Price Range</span><span class="v">$599–$135,000</span></div>
+      <div class="comp-row"><span class="k">Target Customer</span><span class="v">Affluent executives, celebrities</span></div>
+      <div class="comp-row"><span class="k">Traffic Growth</span><span class="v">100%+ MoM after SEO push</span></div>
+      <div class="comp-row"><span class="k">Channel</span><span class="v">Celebrity, paid social, SEO</span></div>
+      <div class="comp-row"><span class="k">Critical Weakness</span><span class="v">Gary Brecka fired Nov 2024 — active litigation with Cardone. Brand credibility engine is gone.</span></div>
+    </div>
+    <div class="comp-card">
+      <h3>Troscriptions</h3>
+      <div class="comp-sub">troscriptions.com</div>
+      <div class="comp-row"><span class="k">Flagship Product</span><span class="v">Blue Cannatine: MB + nicotine + caffeine + hemp crystals</span></div>
+      <div class="comp-row"><span class="k">Price Range</span><span class="v">$27–$34 per product</span></div>
+      <div class="comp-row"><span class="k">Monthly Traffic</span><span class="v">~51,000 visitors</span></div>
+      <div class="comp-row"><span class="k">Monthly Revenue</span><span class="v">~$252,000</span></div>
+      <div class="comp-row"><span class="k">Revenue/Visitor</span><span class="v">~$4.94</span></div>
+      <div class="comp-row"><span class="k">Review Score</span><span class="v">3.0 / 5.0 — customer service complaints</span></div>
+      <div class="comp-row"><span class="k">Critical Weakness</span><span class="v">Nicotine in formula creates hesitation. Zero customer service. Complaints of no phone or email response.</span></div>
+    </div>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Dimension</th><th>10X Health</th><th>Troscriptions</th><th>Deeper Green (MB + Vit C)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Price Entry Point</td><td>$599</td><td>$27–$34</td><td>$27–$45 (est.)</td></tr>
+        <tr><td>Contains MB</td><td>No</td><td>Yes (Blue Cannatine)</td><td>Yes — hero ingredient</td></tr>
+        <tr><td>Contains Nicotine</td><td>No</td><td>Yes</td><td>No — clean formula</td></tr>
+        <tr><td>Contains Hemp</td><td>No</td><td>Yes (hemp crystals)</td><td>Possible future addition</td></tr>
+        <tr><td>Customer Service</td><td>Declining (Brecka exit)</td><td>Poor — documented complaints</td><td>Opportunity to lead</td></tr>
+        <tr><td>Repeat Purchase Model</td><td>Subscribe & Save</td><td>Subscribe & Save (15%)</td><td>Subscription from launch</td></tr>
+        <tr><td>Credibility Anchor</td><td>Celebrity (fractured)</td><td>4 MDs (still intact)</td><td>Ingredient purity + science</td></tr>
+        <tr><td>Brand Trust Score</td><td>Declining</td><td>3.0 / 5.0</td><td>To be built — clean slate</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">🎯</div>
+    <div>
+      <strong>Bottom Line</strong>
+      <p>Troscriptions proves the market exists — $252K/month at 51K visitors with a 3.0 review score and no customer service. Their audience wants MB-based cognitive/energy products but is underserved on quality, trust, and support. Deeper Green enters below their price ceiling, with a cleaner formula (no nicotine), a daily-habit format, and the ability to provide responsive customer service as a core differentiator. The 10X Health audience is warm and brand-orphaned after the Brecka exit. Both gaps are real and open right now.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: PRODUCT -->
+<section id="product">
+  <div class="section-tag tag-green">PRODUCT STRATEGY</div>
+  <h2>Deeper Green: MB + Vitamin C</h2>
+  <p class="section-intro">How the product is positioned in the market — and why the combination is stronger than any single-ingredient play currently in market.</p>
+
+  <div class="table-wrap">
+    <table class="pos-table">
+      <thead>
+        <tr><th>Dimension</th><th>Troscriptions (Benchmark)</th><th style="background:var(--blue);">Deeper Green (MB + Vit C)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Core Promise</td><td>"Feel the difference in 15 minutes"</td><td>Clean fuel. Cellular energy. Every day.</td></tr>
+        <tr><td>Formula</td><td>MB + nicotine + caffeine + hemp</td><td>MB + Vitamin C — dual antioxidant, no stimulants</td></tr>
+        <tr><td>Delivery</td><td>Buccal troche (dissolves in cheek)</td><td>Pill/tablet — familiar, daily-habit format</td></tr>
+        <tr><td>Price Point</td><td>$27–$34</td><td>$27–$45 (to be confirmed)</td></tr>
+        <tr><td>Repeat Purchase</td><td>Subscribe & Save 15%</td><td>Subscription model from day one</td></tr>
+        <tr><td>Regulatory Position</td><td>Gray zone — nicotine ingredient adds risk</td><td>Cleaner — Vitamin C anchors supplement status</td></tr>
+        <tr><td>Target Audience</td><td>Biohackers, clinicians, performance athletes</td><td>Health-conscious achievers, clean-label consumers</td></tr>
+        <tr><td>Differentiator</td><td>Physician-founded, novel delivery</td><td>Cleaner formula, no nicotine, responsive CS</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:1.1rem; font-weight:700; color:var(--navy); margin: 1.5rem 0 1rem;">Important Considerations Before Launch</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Item</th><th>Detail</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Dosing</td><td>Therapeutic benefit at low doses (0.5–4 mg/kg). Toxicity risk rises significantly at high doses. Dosing must be precise.</td><td><span class="risk-high">CRITICAL</span></td></tr>
+        <tr><td>Drug Interactions</td><td>Contraindicated with SSRIs, MAOIs, and other medications. Label and disclaimers required.</td><td><span class="risk-high">CRITICAL</span></td></tr>
+        <tr><td>Legal Counsel</td><td>Engage supplement regulatory attorney before launch. Do not assume supplement status is safe without legal review.</td><td><span class="risk-high">CRITICAL</span></td></tr>
+        <tr><td>Blue Discoloration</td><td>MB temporarily turns urine and sometimes skin blue/green. Harmless — but must be disclosed upfront on packaging.</td><td><span class="risk-med">REQUIRED</span></td></tr>
+        <tr><td>Medical Supervision Messaging</td><td>Low-dose wellness formulations are sold in supplement market, but medical supervision language is recommended.</td><td><span class="risk-med">RECOMMENDED</span></td></tr>
+        <tr><td>Hemp Addition (Future)</td><td>Can be added later. Troscriptions already proves MB + hemp crystals resonates with this audience.</td><td><span class="risk-low">FUTURE PHASE</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">🚀</div>
+    <div>
+      <strong>Bottom Line — The Opportunity in One Paragraph</strong>
+      <p>Troscriptions generates $252,000/month with 51,000 visitors, a 3.0 review score, no customer service, and a formula that includes nicotine. 10X Health's credibility anchor just walked out the door. The U.S. MB market is growing at 5–7% annually and sits at the intersection of a $6B nootropic market and a $67B longevity market both growing at 15%+. Deeper Green's MB + Vitamin C product enters with a cleaner formula, no stimulants, a familiar delivery format, and a real customer service advantage. The first-mover window in clean, accessible MB supplementation is open right now.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-amber" style="margin-top:1rem;">
+    <div class="callout-icon">📋</div>
+    <div>
+      <strong>Next Steps</strong>
+      <p>1. Finalize formulation details and concentration levels with the lab. &nbsp;|&nbsp; 2. Engage supplement regulatory attorney for label review. &nbsp;|&nbsp; 3. Confirm pricing and subscription model. &nbsp;|&nbsp; 4. Build D2C ecommerce site (Deeper Green platform). &nbsp;|&nbsp; 5. Launch marketing campaign targeting biohacker and clean-wellness audiences.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Prepared by <strong>Horsepower AI</strong> for GF Tech One · Kent Rhodes, CEO &nbsp;·&nbsp; April 2026</p>
+  <p style="margin-top:.5rem; opacity:.6;">MB-REVIEW is a proprietary intelligence resource. For internal use and authorized distribution only.</p>
+</footer>
+
+</body>
+</html>
