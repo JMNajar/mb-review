@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Easyriders × GF Tech One | 2026 Partnership Opportunity</title>
+  <style>
+    :root {
+      --er-red:    #c0392b;
+      --er-gold:   #c8a84b;
+      --navy:      #0f2744;
+      --blue:      #1565c0;
+      --teal:      #0097a7;
+      --light-blue:#e8f0fe;
+      --gray:      #f5f7fa;
+      --border:    #dde3ed;
+      --text:      #1a2535;
+      --muted:     #5a6a80;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: #fff; }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--navy); padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    }
+    .nav-brand { color: #fff; font-size: 1.1rem; font-weight: 700; letter-spacing: .08em; padding: 1rem 0; text-decoration: none; }
+    .nav-brand span { color: #64b5f6; }
+    .nav-links { display: flex; gap: .25rem; }
+    .nav-links a {
+      color: #90caf9; text-decoration: none; font-size: .8rem; font-weight: 600;
+      padding: .5rem .75rem; border-radius: 4px; letter-spacing: .04em;
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: rgba(255,255,255,.1); color: #fff; }
+    .nav-links a.active { background: var(--er-red); color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(160deg, #050505 0%, #120008 45%, #0d1a2e 100%);
+      color: #fff; padding: 5rem 2rem 0; position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        -45deg, transparent, transparent 80px,
+        rgba(192,57,43,.025) 80px, rgba(192,57,43,.025) 160px
+      );
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+      padding-bottom: 4rem;
+    }
+    .hero-left { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(192,57,43,.2); color: #e0a0a0;
+      border: 1px solid rgba(192,57,43,.35);
+      font-size: .68rem; font-weight: 800; letter-spacing: .18em;
+      padding: .4rem 1.1rem; border-radius: 3px; margin-bottom: 1.75rem;
+      text-transform: uppercase;
+    }
+
+    /* LOGO LOCKUP */
+    .logo-lockup {
+      display: flex; flex-direction: row; align-items: center; gap: 1.25rem;
+      margin-bottom: 1.75rem; flex-wrap: wrap;
+    }
+    .logo-badge {
+      display: inline-block;
+      background: #fff; border-radius: 8px;
+      padding: .6rem 1.25rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.35);
+    }
+    .logo-badge img {
+      height: 46px; width: auto; display: block;
+    }
+    .logo-x {
+      font-size: 2rem; font-weight: 300; color: #fff;
+      line-height: 1; flex-shrink: 0;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; color: #bbb; line-height: 1.75; margin-bottom: 1.5rem; max-width: 520px;
+    }
+    .hero-sub strong { color: var(--er-gold); font-weight: 700; }
+    .hero-meta { font-size: .78rem; color: #555; font-style: italic; }
+
+    .hero-right { position: relative; z-index: 2; }
+    .hero-right img {
+      width: 100%; border-radius: 14px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.6);
+      display: block;
+    }
+    .hero-right .img-caption {
+      text-align: center; font-size: .72rem; color: #555;
+      margin-top: .75rem; letter-spacing: .06em; text-transform: uppercase;
+    }
+
+    /* STAT BAR */
+    .stat-bar {
+      background: var(--er-red);
+      padding: 1.5rem 2rem;
+    }
+    .stat-bar-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; gap: 0; justify-content: space-between; flex-wrap: wrap;
+    }
+    .sb-item {
+      flex: 1; min-width: 130px; text-align: center;
+      padding: .5rem 1rem; border-right: 1px solid rgba(255,255,255,.2);
+    }
+    .sb-item:last-child { border-right: none; }
+    .sb-num { font-size: 1.75rem; font-weight: 900; color: #fff; line-height: 1; }
+    .sb-lbl { font-size: .65rem; color: rgba(255,255,255,.8); font-weight: 700; letter-spacing: .08em; margin-top: .2rem; text-transform: uppercase; }
+
+    /* SECTIONS */
+    section { padding: 4.5rem 2rem; max-width: 1000px; margin: 0 auto; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-tag {
+      display: inline-block; font-size: .68rem; font-weight: 800; letter-spacing: .12em;
+      padding: .3rem .85rem; border-radius: 20px; margin-bottom: .85rem; text-transform: uppercase;
+    }
+    .tag-red   { background: #fde8e6; color: var(--er-red); }
+    .tag-blue  { background: var(--light-blue); color: var(--blue); }
+    .tag-gold  { background: #fdf3dc; color: #8a6500; }
+    .tag-navy  { background: #e8edf5; color: var(--navy); }
+    .tag-green { background: #e8f5e9; color: #1b5e20; }
+    .tag-teal  { background: #e0f7fa; color: var(--teal); }
+    h2 { font-size: 1.9rem; font-weight: 800; margin-bottom: .6rem; color: var(--navy); line-height: 1.2; }
+    h2 .accent { color: var(--er-red); }
+    .section-intro { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; max-width: 760px; line-height: 1.75; }
+
+    /* WHAT HE GETS - BIG WINS */
+    .wins-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .win-card {
+      border-radius: 12px; padding: 1.75rem;
+      background: var(--gray); border: 1px solid var(--border);
+      border-top: 4px solid var(--er-red);
+    }
+    .win-card .wc-icon { font-size: 1.75rem; margin-bottom: .75rem; }
+    .win-card h4 { font-size: .95rem; font-weight: 800; color: var(--navy); margin-bottom: .4rem; }
+    .win-card p { font-size: .85rem; color: var(--muted); line-height: 1.65; }
+
+    /* PRODUCT SHOWCASE */
+    .product-showcase {
+      background: linear-gradient(160deg, #f0f4fa 0%, #e8f0fe 100%);
+      padding: 5rem 2rem; text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .product-showcase .ps-eyebrow {
+      display: inline-block; background: var(--navy); color: #fff;
+      font-size: .68rem; font-weight: 800; letter-spacing: .15em;
+      padding: .35rem 1.1rem; border-radius: 3px; margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+    .product-showcase h2 { font-size: 2rem; font-weight: 900; color: var(--navy); margin-bottom: .5rem; }
+    .product-showcase h2 em { color: var(--er-red); font-style: normal; }
+    .product-showcase .ps-sub { font-size: 1rem; color: var(--muted); max-width: 640px; margin: 0 auto 3rem; line-height: 1.7; }
+
+    .kit-image {
+      max-width: 820px; margin: 0 auto 3rem;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 12px 48px rgba(0,0,0,.15);
+    }
+    .kit-image img { width: 100%; display: block; }
+    .kit-caption { font-size: .78rem; color: var(--muted); margin-top: .75rem; letter-spacing: .06em; text-transform: uppercase; }
+
+    .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 700px; margin: 3rem auto 0; }
+    .product-card { background: #fff; border-radius: 14px; padding: 1.75rem 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,.08); position: relative; }
+    .product-card .pc-badge {
+      position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+      background: var(--er-red); color: #fff;
+      font-size: .62rem; font-weight: 800; letter-spacing: .1em;
+      padding: .28rem .85rem; border-radius: 20px; white-space: nowrap; text-transform: uppercase;
+    }
+    .product-card.v2 .pc-badge { background: var(--blue); }
+    .product-card img {
+      width: 100%; max-width: 220px; height: auto;
+      display: block; margin: 0 auto 1rem;
+      filter: drop-shadow(0 6px 16px rgba(0,0,0,.12));
+    }
+    .product-card .pc-name { font-size: .95rem; font-weight: 900; color: var(--navy); margin-bottom: .2rem; text-align: center; }
+    .product-card .pc-tagline { font-size: .72rem; color: var(--muted); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; margin-bottom: .75rem; text-align: center; }
+    .product-attrs { display: flex; gap: .4rem; justify-content: center; flex-wrap: wrap; }
+    .attr-pill {
+      background: var(--gray); border: 1px solid var(--border);
+      font-size: .68rem; font-weight: 700; color: var(--navy);
+      padding: .2rem .6rem; border-radius: 20px;
+    }
+
+    /* MARKET */
+    .market-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .mkt-card {
+      border-radius: 10px; padding: 1.5rem 1.25rem; text-align: center;
+      background: var(--gray); border: 1px solid var(--border);
+      border-top: 3px solid var(--blue);
+    }
+    .mkt-card.hl { border-top-color: var(--er-red); }
+    .mkt-card .mc-num { font-size: 1.9rem; font-weight: 900; color: var(--navy); }
+    .mkt-card .mc-lbl { font-size: .7rem; color: var(--muted); font-weight: 700; letter-spacing: .06em; margin-top: .35rem; text-transform: uppercase; }
+    .mkt-card .mc-sub { font-size: .77rem; color: var(--muted); margin-top: .4rem; line-height: 1.4; }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; gap: 1.1rem; margin-bottom: 2rem; counter-reset: step; }
+    .step {
+      display: flex; gap: 1.4rem; align-items: flex-start;
+      background: var(--gray); border-radius: 12px; padding: 1.4rem;
+      border: 1px solid var(--border);
+    }
+    .step-num {
+      counter-increment: step; flex-shrink: 0;
+      width: 2.4rem; height: 2.4rem;
+      background: var(--er-red); color: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 900;
+    }
+    .step-num::after { content: counter(step); }
+    .step-body h4 { font-size: .95rem; font-weight: 800; color: var(--navy); margin-bottom: .3rem; }
+    .step-body p { font-size: .86rem; color: var(--muted); line-height: 1.65; }
+
+    /* CALLOUTS */
+    .callout {
+      border-radius: 10px; padding: 1.3rem 1.6rem; margin-top: 1.75rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .callout-red   { background: #fde8e6; border-left: 4px solid var(--er-red); }
+    .callout-gold  { background: #fdf3dc; border-left: 4px solid var(--er-gold); }
+    .callout-blue  { background: var(--light-blue); border-left: 4px solid var(--blue); }
+    .callout-green { background: #e8f5e9; border-left: 4px solid #2e7d32; }
+    .callout-icon  { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+    .callout strong { display: block; font-size: .9rem; font-weight: 800; margin-bottom: .35rem; color: var(--navy); }
+    .callout p { font-size: .88rem; color: var(--text); line-height: 1.65; }
+
+    /* DARK STRIP */
+    .dark-strip {
+      background: #080808; color: #fff;
+      padding: 4rem 2rem; text-align: center;
+    }
+    .dark-strip h3 { font-size: 1.7rem; font-weight: 900; color: #fff; margin-bottom: .6rem; letter-spacing: -.01em; }
+    .dark-strip h3 em { color: var(--er-gold); font-style: normal; }
+    .dark-strip p { color: #888; font-size: 1rem; max-width: 620px; margin: 0 auto 2.5rem; line-height: 1.75; }
+    .proof-points { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .proof-pt { text-align: center; max-width: 195px; }
+    .proof-pt .pp-icon { font-size: 1.8rem; margin-bottom: .5rem; }
+    .proof-pt .pp-text { font-size: .84rem; color: #bbb; line-height: 1.55; }
+    .proof-pt .pp-text strong { color: #fff; display: block; margin-bottom: .2rem; }
+
+    /* TWO COL */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+    .panel { background: var(--gray); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
+    .panel.er   { border-top: 4px solid var(--er-red); }
+    .panel.gfto { border-top: 4px solid var(--blue); }
+    .panel h3 { font-size: 1rem; font-weight: 800; color: var(--navy); margin-bottom: .25rem; }
+    .panel .sub { font-size: .78rem; color: var(--muted); margin-bottom: 1rem; }
+    .panel ul { padding-left: 1.1rem; }
+    .panel li { font-size: .88rem; color: var(--text); line-height: 1.8; }
+    .panel.er   li::marker { color: var(--er-red); }
+    .panel.gfto li::marker { color: var(--blue); }
+
+    /* CTA BLOCK */
+    .cta-block {
+      background: linear-gradient(135deg, #0f2744 0%, #1a3a6b 100%);
+      color: #fff; border-radius: 14px; padding: 3.5rem 2.5rem; text-align: center;
+      margin-bottom: 2rem; border-top: 4px solid var(--er-red);
+    }
+    .cta-block .db-eyebrow {
+      font-size: .7rem; font-weight: 800; letter-spacing: .18em;
+      color: rgba(255,255,255,.55); text-transform: uppercase; margin-bottom: .85rem;
+    }
+    .cta-block h2 { font-size: 2.1rem; font-weight: 900; color: #fff; margin-bottom: .85rem; }
+    .cta-block h2 span { color: var(--er-gold); }
+    .cta-block p { color: rgba(255,255,255,.75); max-width: 580px; margin: 0 auto 2rem; font-size: 1rem; line-height: 1.75; }
+    .cta-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; background: var(--er-red); color: #fff;
+      font-size: .9rem; font-weight: 900; letter-spacing: .06em; text-transform: uppercase;
+      padding: .95rem 2.5rem; border-radius: 6px; text-decoration: none;
+      box-shadow: 0 4px 15px rgba(192,57,43,.4); transition: transform .15s, box-shadow .15s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(192,57,43,.5); }
+    .btn-secondary {
+      display: inline-block; background: rgba(255,255,255,.1); color: #fff;
+      font-size: .9rem; font-weight: 700; letter-spacing: .04em;
+      padding: .95rem 2.5rem; border-radius: 6px; text-decoration: none;
+      border: 1px solid rgba(255,255,255,.25); transition: background .2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,.18); }
+
+    /* FOOTER */
+    footer { background: var(--navy); color: #90caf9; text-align: center; padding: 2rem; font-size: .8rem; }
+    footer strong { color: #fff; }
+
+    @media (max-width: 720px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .two-col { grid-template-columns: 1fr; }
+      .product-grid { grid-template-columns: 1fr; }
+      .stat-bar-inner { gap: .5rem; }
+      .sb-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,.2); }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-brand">MB<span>-REVIEW</span></a>
+  <div class="nav-links">
+    <a href="index.html#overview">MB Overview</a>
+    <a href="index.html#market">Market</a>
+    <a href="index.html#competitive">Competitive</a>
+    <a href="easyriders.html" class="active">Easyriders JV</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">&#x1F91D; Joint Venture Opportunity — Confidential</div>
+
+      <div class="logo-lockup">
+        <div class="logo-badge">
+          <img src="ER_LOGO.jpg" alt="Easyriders Magazine" />
+        </div>
+        <div class="logo-x">+</div>
+        <div class="logo-badge">
+          <img src="GFTECH1%20LOGO.jpg" alt="GF Tech One" />
+        </div>
+      </div>
+
+      <p class="hero-sub">
+        A co-branded performance wellness product — built on Easyriders' 55-year legacy, powered by Deeper Green™ — designed to <strong>create a new revenue stream that runs on autopilot</strong> for Easyriders in 2026 and beyond.
+      </p>
+      <p class="hero-meta">Prepared by Horsepower AI for GF Tech One &nbsp;|&nbsp; April 2026 &nbsp;|&nbsp; Confidential</p>
+    </div>
+    <div class="hero-right">
+      <img src="Influencer_Kit.png" alt="LEUCO Methylene Blue Fizz — Full Product Line" />
+      <div class="img-caption">LEUCO Methylene Blue Fizz &nbsp;·&nbsp; Powered by Deeper Green™</div>
+    </div>
+  </div>
+</div>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+  <div class="stat-bar-inner">
+    <div class="sb-item">
+      <div class="sb-num">$57M+</div>
+      <div class="sb-lbl">2026 U.S. MB Market</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num">15%+</div>
+      <div class="sb-lbl">Annual Growth</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num">1M+</div>
+      <div class="sb-lbl">Easyriders Riders</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num">$0</div>
+      <div class="sb-lbl">Operational Cost to ER</div>
+    </div>
+    <div class="sb-item">
+      <div class="sb-num">55+</div>
+      <div class="sb-lbl">Years of Trust</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION: WHAT KEITH GETS -->
+<section id="opportunity">
+  <div class="section-tag tag-red">WHY THIS CONVERSATION MATTERS</div>
+  <h2>A New Revenue Stream — <span class="accent">Without Adding Operations</span></h2>
+  <p class="section-intro">
+    This is a co-branding partnership built on shared strengths. Easyriders brings the brand and the audience. GF Tech One brings the product, the operations, and the DTC engine. Both sides co-market — and every unit sold under the Easyriders name generates revenue for Easyriders.
+  </p>
+
+  <div class="wins-grid">
+    <div class="win-card">
+      <div class="wc-icon">&#x1F4B0;</div>
+      <h4>Recurring Licensing Revenue</h4>
+      <p>A royalty or revenue share on every LEUCO unit sold under the Easyriders brand — compounding as the DTC program scales.</p>
+    </div>
+    <div class="win-card">
+      <div class="wc-icon">&#x1F3CD;</div>
+      <h4>Built for Your Audience</h4>
+      <p>Riders live physically. They value performance, recovery, and mental clarity. LEUCO is the product they didn't know was already made for them.</p>
+    </div>
+    <div class="win-card">
+      <div class="wc-icon">&#x1F680;</div>
+      <h4>First in the Category</h4>
+      <p>No methylene blue brand has claimed the rider market. Easyriders enters as the category creator — not a follower fighting for shelf space.</p>
+    </div>
+    <div class="win-card">
+      <div class="wc-icon">&#x1F91D;</div>
+      <h4>A True Co-Branding Partnership</h4>
+      <p>GFTO handles manufacturing, fulfillment, and operations. Both partners co-market — Easyriders activates its audience, GFTO activates its DTC engine. Shared brand. Shared reach. Shared revenue.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-gold">
+    <div class="callout-icon">&#x1F4A1;</div>
+    <div>
+      <strong>The 2026 Angle</strong>
+      <p>Easyriders has an audience that trusts it and spends freely. The gap is a branded product line in the performance wellness space that speaks to how riders actually live. LEUCO fills that gap — and the revenue it generates for Easyriders starts with the first sale.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT SHOWCASE -->
+<div class="product-showcase">
+  <div class="ps-eyebrow">The Product Line — Ready for Launch</div>
+  <h2>LEUCO <em>Methylene Blue</em></h2>
+  <p class="ps-sub">
+    Advanced absorption technology. Powered by Deeper Green™. Available in multiple formats — from single-serve packs to 30-count bottles. Built for the rider who performs at full throttle and recovers smarter.
+  </p>
+
+  <div class="kit-image">
+    <img src="Influencer_Kit.png" alt="LEUCO Methylene Blue Fizz — Full Product Line including water bottle, tubes, jar, and pouch" />
+  </div>
+  <div class="kit-caption">Full LEUCO Product Line &nbsp;·&nbsp; Fizz Tablets &nbsp;·&nbsp; 10mg per tablet &nbsp;·&nbsp; Energize. Focus. Elevate.</div>
+
+  <p style="font-size:1rem;color:var(--muted);max-width:640px;margin:2.5rem auto 1rem;line-height:1.7;">
+    The Easyriders co-branded version — <strong style="color:var(--navy);">LEUCO by Easyriders</strong> — puts the most trusted name in rider culture on a product that was built for their lifestyle.
+  </p>
+
+  <div class="product-grid">
+    <div class="product-card v1">
+      <div class="pc-badge">Peak Clarity State</div>
+      <img src="Easyriders_Leuco_Peak_Clarity_State.png" alt="LEUCO — Peak Clarity State, Easyriders Co-Brand" />
+      <div class="pc-name">Peak Clarity State</div>
+      <div class="pc-tagline">Easyriders Signature Edition</div>
+      <div class="product-attrs">
+        <span class="attr-pill">Energy</span>
+        <span class="attr-pill">Focus</span>
+        <span class="attr-pill">Antioxidant</span>
+        <span class="attr-pill">Deeper Green™</span>
+      </div>
+    </div>
+    <div class="product-card v2">
+      <div class="pc-badge">Peak Riding State</div>
+      <img src="Easyriders_Leuco_Peak_Riding_State.png" alt="LEUCO — Peak Riding State, Easyriders Co-Brand" />
+      <div class="pc-name">Peak Riding State</div>
+      <div class="pc-tagline">Easyriders Flag Edition</div>
+      <div class="product-attrs">
+        <span class="attr-pill">Energy</span>
+        <span class="attr-pill">Focus</span>
+        <span class="attr-pill">Antioxidant</span>
+        <span class="attr-pill">Deeper Green™</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION: THE MARKET -->
+<section id="market">
+  <div class="section-tag tag-blue">THE MARKET OPPORTUNITY</div>
+  <h2>Methylene Blue Is Moving <span class="accent">Into the Mainstream — Fast</span></h2>
+  <p class="section-intro">
+    Once confined to clinical settings, methylene blue has entered the consumer wellness market with real momentum. The longevity movement, performance biohacking culture, and growing demand for clean cognitive support have opened a commercial window — and the brands entering now will own the category.
+  </p>
+
+  <div class="market-grid">
+    <div class="mkt-card hl">
+      <div class="mc-num">$45–57M</div>
+      <div class="mc-lbl">2026 U.S. Consumer Market</div>
+      <div class="mc-sub">Base case. Expanding rapidly as mainstream awareness accelerates.</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mc-num">15%+</div>
+      <div class="mc-lbl">Nootropic Market Growth</div>
+      <div class="mc-sub">Year-over-year growth in the cognitive performance category.</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mc-num">$67B</div>
+      <div class="mc-lbl">Longevity Supplement Market</div>
+      <div class="mc-sub">MB sits at the intersection of energy, focus, and longevity — all high-growth segments.</div>
+    </div>
+    <div class="mkt-card">
+      <div class="mc-num">130+</div>
+      <div class="mc-lbl">Years of Medical Use</div>
+      <div class="mc-sub">The science is established. Consumer adoption is just beginning.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <div class="callout-icon">&#x26A1;</div>
+    <div>
+      <strong>The Window Is Open — Competitors Are Already Moving</strong>
+      <p>10X Health, Troscriptions, and other premium wellness brands have entered the methylene blue space. None of them have the Easyriders audience. LEUCO enters this market with a brand that 1 million riders already trust — an advantage no competitor can replicate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION: HOW IT WORKS -->
+<section id="howit">
+  <div class="section-tag tag-navy">HOW THE PARTNERSHIP WORKS</div>
+  <h2>Easyriders Brings the Brand. <span class="accent">We Handle Everything Else.</span></h2>
+  <p class="section-intro">
+    The structure is designed so Easyriders never touches a box, never answers a customer email, and never runs a digital ad. GF Tech One operates the full program. Easyriders earns from every unit sold.
+  </p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num"></div>
+      <div class="step-body">
+        <h4>Manufacturing &amp; Formulation</h4>
+        <p>LEUCO is already formulated and ready for production through GFTO's established supply partners. No development costs, no delay. Easyriders does not touch the supply chain.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"></div>
+      <div class="step-body">
+        <h4>Direct-to-Consumer Fulfillment</h4>
+        <p>GFTO manages the complete DTC operation — order processing, packaging, shipping, and customer service. Products move from production to the rider's door without any Easyriders involvement.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"></div>
+      <div class="step-body">
+        <h4>Co-Marketing — Both Sides Drive Awareness</h4>
+        <p>This is a true co-branding effort. Easyriders activates its 1M+ rider audience through print, social, email, and events. Horsepower AI and GFTO run the digital marketing program — paid ads, email campaigns, content, and conversion optimization — under the shared brand. Each partner brings its platform. Together, the reach multiplies.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"></div>
+      <div class="step-body">
+        <h4>In-Store &amp; Event Placement (Optional Upside)</h4>
+        <p>LEUCO can be stocked at Easyriders-affiliated shops and featured at Rodeo and other events — physical brand presence in the spaces where the audience already gathers. Additional revenue channel, fully managed by GFTO.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num"></div>
+      <div class="step-body">
+        <h4>Licensing Revenue to Easyriders</h4>
+        <p>Easyriders receives a royalty or revenue share on every unit sold under the co-branded LEUCO line. Clean, recurring, and scalable — it grows as the DTC program grows.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">&#x2714;</div>
+    <div>
+      <strong>Zero Operational Burden for Easyriders</strong>
+      <p>No inventory. No shipping. No customer service. No ad spend. No capital at risk. Easyriders licenses a name it already owns — and earns revenue from every sale GF Tech One generates on its behalf.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DARK STRIP -->
+<div class="dark-strip">
+  <h3>A Smart Extension of <em>What Easyriders Already Is</em></h3>
+  <p>This isn't a detour from the Easyriders brand — it's a natural extension. Riders perform. They recover. They value what keeps them sharp on the road. LEUCO is the product that was always going to exist for this audience.</p>
+  <div class="proof-points">
+    <div class="proof-pt">
+      <div class="pp-icon">&#x1F9EA;</div>
+      <div class="pp-text"><strong>Product-Market Fit</strong>Performance wellness meets rider culture — a combination no competitor has claimed.</div>
+    </div>
+    <div class="proof-pt">
+      <div class="pp-icon">&#x1F4B0;</div>
+      <div class="pp-text"><strong>New Revenue Stream</strong>Recurring licensing income. Zero operational cost to Easyriders.</div>
+    </div>
+    <div class="proof-pt">
+      <div class="pp-icon">&#x1F3AF;</div>
+      <div class="pp-text"><strong>Category First</strong>Easyriders enters as the defining brand in MB for riders — before anyone else can.</div>
+    </div>
+    <div class="proof-pt">
+      <div class="pp-icon">&#x1F91D;</div>
+      <div class="pp-text"><strong>GFTO Runs It All</strong>Manufacturing. Fulfillment. Marketing. Easyriders collects the revenue.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION: THE DEAL -->
+<section id="deal">
+  <div class="section-tag tag-gold">THE STRUCTURE</div>
+  <h2>What Easyriders Contributes. <span class="accent">What Easyriders Receives.</span></h2>
+  <p class="section-intro">
+    This partnership is designed to be simple, low-risk, and high-reward for Easyriders. The terms below represent the starting framework — everything is negotiable around what works best for both parties.
+  </p>
+
+  <div class="two-col">
+    <div class="panel er">
+      <h3>Easyriders Contributes</h3>
+      <div class="sub">Brand equity + audience reach</div>
+      <ul>
+        <li>Easyriders name and logo license for LEUCO packaging and marketing</li>
+        <li>Access to 760K Facebook, 68K Instagram, and 89K email audience</li>
+        <li>Print placement in Easyriders Magazine (co-branded advertising)</li>
+        <li>Cultural authority — 55+ years of rider trust and credibility</li>
+        <li>Optional: Rodeo events and in-store shop network</li>
+      </ul>
+    </div>
+    <div class="panel gfto">
+      <h3>GF Tech One Delivers</h3>
+      <div class="sub">Full operational execution</div>
+      <ul>
+        <li>All manufacturing, formulation, and quality control (product is ready)</li>
+        <li>Complete DTC fulfillment — order to doorstep, no Easyriders involvement</li>
+        <li>Digital marketing program run by Horsepower AI</li>
+        <li>All capital, operational costs, and business risk</li>
+        <li>Royalty / revenue share payments to Easyriders on every unit sold</li>
+        <li>Regular reporting — Easyriders sees the numbers, owns none of the work</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-red">
+    <div class="callout-icon">&#x1F4CC;</div>
+    <div>
+      <strong>The Bottom Line for Easyriders in 2026</strong>
+      <p>Easyriders licenses a name it already owns to a product that already exists, in a market that is already growing — and collects recurring revenue while GF Tech One runs every aspect of the operation. The risk profile for Easyriders is minimal. The upside is real, recurring, and compounding.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div style="padding: 0 2rem 4rem; max-width: 1000px; margin: 0 auto;">
+  <div class="cta-block">
+    <div class="db-eyebrow">The Conversation Starts Here</div>
+    <h2>Let's Talk About What <span>Works for Easyriders</span></h2>
+    <p>
+      The product is ready. The market is moving. The audience is already there.
+      GF Tech One is prepared to structure a deal around what makes the most sense for Easyriders — and we're ready to move quickly.
+    </p>
+    <div class="cta-row">
+      <a href="mailto:jeff.najar@horsepowermarketing.com?subject=Easyriders%20x%20GFTO%20Partnership%20Discussion" class="btn-primary">Contact Jeff Najar — Horsepower AI</a>
+      <a href="index.html" class="btn-secondary">View Full MB Market Research</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>GF Tech One × Easyriders — 2026 Joint Venture Overview</strong></p>
+  <p style="margin-top:.5rem;">Prepared by Horsepower AI &mdash; April 2026 &nbsp;|&nbsp; Confidential — For Keith Ball</p>
+</footer>
+
+</body>
+</html>
