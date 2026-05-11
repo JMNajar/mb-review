@@ -1,0 +1,5 @@
+# Research docs and build scripts — stored locally, not deployed
+*.docx
+*.pdf
+*.py
+~$*
