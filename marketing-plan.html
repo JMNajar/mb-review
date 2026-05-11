@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LEUCO Marketing Plan | MB-Review</title>
+  <style>
+    :root {
+      --navy:   #1B4332;
+      --gold:   #D4A017;
+      --green:  #2D6B2D;
+      --lgreen: #E8F5E9;
+      --lgold:  #FFF8E1;
+      --cream:  #F5EDE0;
+      --white:  #FFFFFF;
+      --light:  #FAFAF8;
+      --border: #DDE3ED;
+      --text:   #1a2535;
+      --muted:  #5a6a80;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--light); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #FEFCE8; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.06);
+      min-height: 60px;
+    }
+    .nav-brand { color: var(--navy); font-size: 1.05rem; font-weight: 800; letter-spacing: .08em; }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: .15rem; flex-wrap: wrap; }
+    .nav-links a {
+      color: var(--navy); text-decoration: none; font-size: .78rem; font-weight: 600;
+      padding: .45rem .7rem; border-radius: 4px; letter-spacing: .03em;
+      transition: background .2s, color .2s; white-space: nowrap;
+    }
+    .nav-links a:hover { background: rgba(27,67,50,.1); }
+    .nav-links a.active { background: var(--navy); color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1B4332 0%, #2D5A3D 100%);
+      color: #fff; padding: 4rem 2rem 3rem; text-align: center;
+    }
+    .hero-tag {
+      display: inline-block; background: rgba(212,160,23,.2);
+      color: #FFD54F; font-size: .72rem; font-weight: 700;
+      letter-spacing: .1em; padding: .3rem .9rem; border-radius: 20px;
+      border: 1px solid rgba(212,160,23,.4); margin-bottom: 1.1rem;
+    }
+    .hero h1 { font-size: 2.4rem; font-weight: 800; line-height: 1.15; margin-bottom: .65rem; }
+    .hero h1 span { color: #FFD54F; }
+    .hero p { color: #A5D6A7; font-size: 1rem; max-width: 640px; margin: 0 auto 2rem; }
+    .stat-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .stat-card {
+      background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px; padding: 1rem 1.4rem; min-width: 130px; text-align: center;
+    }
+    .stat-card .num { font-size: 1.7rem; font-weight: 800; color: #fff; }
+    .stat-card .lbl { font-size: .67rem; color: #A5D6A7; font-weight: 600; letter-spacing: .06em; margin-top: .2rem; }
+
+    /* PAGE NAV */
+    .page-nav {
+      background: #FEFCE8; border-bottom: 1px solid var(--border);
+      padding: .55rem 2rem; display: flex; gap: .35rem; flex-wrap: wrap; align-items: center;
+    }
+    .page-nav a {
+      font-size: .75rem; font-weight: 600; color: var(--navy); text-decoration: none;
+      padding: .25rem .65rem; border-radius: 4px; white-space: nowrap;
+    }
+    .page-nav a:hover { background: var(--lgreen); }
+
+    /* LAYOUT */
+    .container { max-width: 960px; margin: 0 auto; padding: 3rem 2rem; }
+    .container + .container { border-top: 1px solid var(--border); }
+    section { max-width: 960px; margin: 0 auto; padding: 3rem 2rem; }
+    section + section { border-top: 1px solid var(--border); }
+
+    .section-tag {
+      display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+      padding: .28rem .75rem; border-radius: 20px; margin-bottom: .65rem;
+    }
+    .tag-green { background: var(--lgreen); color: var(--navy); }
+    .tag-gold  { background: var(--lgold);  color: #8B6914; }
+    .tag-cream { background: var(--cream);  color: var(--navy); }
+
+    h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: .4rem; color: var(--navy); }
+    h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 .5rem; }
+    h4 { font-size: .85rem; font-weight: 700; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin: 1.25rem 0 .4rem; }
+    .section-intro { color: var(--muted); font-size: .95rem; margin-bottom: 1.75rem; max-width: 740px; line-height: 1.65; }
+    p { font-size: .92rem; color: var(--text); line-height: 1.65; margin-bottom: .75rem; }
+
+    /* TABLES */
+    .table-wrap { overflow-x: auto; margin-bottom: 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+    thead th {
+      background: var(--navy); color: #fff; text-align: left;
+      padding: .65rem .9rem; font-size: .74rem; font-weight: 700; letter-spacing: .05em;
+    }
+    thead th.gold { background: var(--gold); }
+    tbody tr:nth-child(even) { background: var(--light); }
+    tbody tr:hover { background: var(--lgreen); }
+    tbody td { padding: .6rem .9rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+    tbody tr:last-child td { border-bottom: none; }
+    td strong { color: var(--navy); }
+
+    /* CALLOUTS */
+    .callout {
+      border-radius: 8px; padding: 1.1rem 1.4rem; margin: 1.1rem 0;
+      display: flex; gap: .85rem; align-items: flex-start;
+    }
+    .callout-green { background: var(--lgreen); border-left: 4px solid var(--green); }
+    .callout-gold  { background: var(--lgold);  border-left: 4px solid var(--gold); }
+    .callout-cream { background: var(--cream);  border-left: 4px solid var(--navy); }
+    .callout-navy  { background: var(--navy);   border-left: 4px solid #FFD54F; }
+    .callout-icon  { font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+    .callout p     { font-size: .88rem; line-height: 1.6; margin: 0; }
+    .callout-navy p { color: #A5D6A7; }
+    .callout strong { display: block; font-size: .83rem; font-weight: 700; margin-bottom: .25rem; color: var(--navy); }
+    .callout-navy strong { color: #FFD54F; }
+
+    /* QUOTE BLOCK */
+    .quote-block {
+      background: var(--navy); border-radius: 8px; padding: 1.4rem 1.75rem;
+      margin: 1.4rem 0; color: #A5D6A7; font-size: .98rem;
+      font-style: italic; line-height: 1.65; border-left: 4px solid #FFD54F;
+    }
+
+    /* BENEFIT GRID */
+    .benefit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .benefit-item {
+      background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.1rem 1.25rem; border-top: 3px solid var(--navy);
+    }
+    .benefit-item h4 { font-size: .82rem; font-weight: 700; color: var(--navy); margin: 0 0 .4rem; letter-spacing: 0; text-transform: none; }
+    .benefit-item p { font-size: .81rem; color: var(--muted); margin: 0; line-height: 1.55; }
+
+    /* PHASE CARDS */
+    .phase-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+    .phase-card { border-radius: 8px; padding: 1.4rem; border: 1px solid var(--border); }
+    .phase-1 { background: var(--lgreen); border-top: 4px solid var(--navy); }
+    .phase-2 { background: var(--lgold);  border-top: 4px solid var(--gold); }
+    .phase-card h4 { font-size: .7rem; font-weight: 800; letter-spacing: .08em; margin-bottom: .3rem; color: var(--navy); text-transform: uppercase; }
+    .phase-2 h4 { color: #8B6914; }
+    .phase-card h3 { margin: 0 0 .65rem; font-size: .98rem; color: var(--navy); }
+    .phase-card ul { padding-left: 1.1rem; }
+    .phase-card li { font-size: .83rem; color: var(--text); line-height: 1.7; }
+
+    /* CHANNEL ITEMS */
+    .channel-list { display: flex; flex-direction: column; gap: .85rem; margin-bottom: 1.5rem; }
+    .channel-item {
+      background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.1rem 1.4rem; display: grid;
+      grid-template-columns: auto 1fr auto; gap: .85rem; align-items: start;
+    }
+    .channel-num { font-size: 1.5rem; font-weight: 800; color: var(--navy); line-height: 1; min-width: 2rem; }
+    .channel-body h4 { font-size: .92rem; font-weight: 700; color: var(--navy); margin: 0 0 .2rem; letter-spacing: 0; text-transform: none; }
+    .channel-body p { font-size: .82rem; color: var(--muted); margin: 0; line-height: 1.55; }
+    .channel-badge {
+      font-size: .67rem; font-weight: 700; letter-spacing: .05em; white-space: nowrap;
+      padding: .28rem .65rem; border-radius: 20px; align-self: start;
+    }
+    .badge-green { background: var(--lgreen); color: var(--navy); }
+    .badge-gold  { background: var(--lgold);  color: #8B6914; }
+    .badge-cream { background: var(--cream);  color: var(--navy); }
+
+    /* UPGRADE PATH */
+    .upgrade-steps { display: flex; align-items: center; gap: .4rem; margin: 1.4rem 0; flex-wrap: wrap; }
+    .upgrade-step { background: var(--lgreen); border: 1px solid var(--border); border-radius: 6px; padding: .5rem .9rem; font-size: .83rem; font-weight: 700; color: var(--navy); }
+    .upgrade-arrow { color: var(--gold); font-size: 1.1rem; font-weight: 800; }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: .45rem; margin-bottom: 1.25rem; }
+    .checklist li {
+      display: flex; gap: .7rem; font-size: .87rem; line-height: 1.55;
+      color: var(--text); padding: .45rem .75rem;
+      background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+    }
+    .checklist li::before { content: '□'; font-size: .95rem; color: var(--navy); flex-shrink: 0; line-height: 1.45; }
+
+    /* FOOTER */
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 2.5rem 2rem; text-align: center; font-size: .8rem; }
+    footer strong { color: #FFD54F; }
+    .footer-legal { font-size: .72rem; color: rgba(255,255,255,.4); margin-top: .5rem; }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; background: none; border: none; cursor: pointer; padding: .5rem;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: transform .25s, opacity .25s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.7rem; }
+      .phase-grid { grid-template-columns: 1fr; }
+      .channel-item { grid-template-columns: auto 1fr; }
+      .channel-badge { grid-column: 2; }
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; background: #FEFCE8;
+        padding: .5rem 1rem 1rem; box-shadow: 0 4px 12px rgba(0,0,0,.12); gap: .2rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: .7rem 1rem; font-size: .9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-brand">MB<span>-REVIEW</span></div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Market Intelligence</a>
+    <a href="marketing-plan.html" class="active">Marketing Plan</a>
+    <a href="implementation-plan.html">Implementation Plan</a>
+    <a href="easyriders.html" style="background:#c0392b;color:#fff;border-radius:4px;">Easyriders JV</a>
+  </div>
+</nav>
+<script>
+  const btn = document.getElementById('hamburger');
+  const links = document.getElementById('nav-links');
+  btn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', false);
+  }));
+</script>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">LEUCO MB FIZZ · PEAK STATE · HORSEPOWER AI · MAY 2026</div>
+  <h1>LEUCO Methylene Blue Fizz<br><span>Marketing Plan</span></h1>
+  <p>Troscriptions Defector entry wedge → Women's Health Biohackers expansion. Two phases. Nine channels. $2,000/month.</p>
+  <div class="stat-row">
+    <div class="stat-card"><div class="num">$2K</div><div class="lbl">Monthly Budget</div></div>
+    <div class="stat-card"><div class="num">$38M</div><div class="lbl">2025 Market Size</div></div>
+    <div class="stat-card"><div class="num">300%+</div><div class="lbl">YoY Market Growth</div></div>
+    <div class="stat-card"><div class="num">2</div><div class="lbl">Products / Staged</div></div>
+    <div class="stat-card"><div class="num">Day 1</div><div class="lbl">Fizz Launches</div></div>
+  </div>
+</div>
+
+<!-- PAGE NAV -->
+<div class="page-nav">
+  <a href="#exec-summary">Executive Summary</a>
+  <a href="#product">Product</a>
+  <a href="#two-product">Two-Product</a>
+  <a href="#market">Market</a>
+  <a href="#demographics">Demographics</a>
+  <a href="#phases">Phases</a>
+  <a href="#channels">Channels</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#website">Website</a>
+  <a href="#budget">Budget</a>
+  <a href="#kpis">KPIs</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 1 — EXECUTIVE SUMMARY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="exec-summary">
+  <span class="section-tag tag-green">SECTION 1</span>
+  <h2>Executive Summary</h2>
+  <p class="section-intro">LEUCO Methylene Blue Fizz by Peak State enters a $30–38M market growing at 300%+ annually with a product that has no direct competitor. One visual moment sells the entire brand — and no other product in the category can replicate it.</p>
+
+  <div class="quote-block">
+    "LEUCO Methylene Blue Fizz is the only effervescent MB product on the market. You can see it work in real time. That is the marketing plan."
+  </div>
+
+  <div class="benefit-grid">
+    <div class="benefit-item">
+      <h4>LEUCO Form</h4>
+      <p>Bioactive, already-reduced methylene blue — faster absorption and higher bioavailability than standard oxidized MB.</p>
+    </div>
+    <div class="benefit-item">
+      <h4>The Fizz Ritual</h4>
+      <p>Tablet drops blue, transforms to vibrant green in real time. Visible proof of bioavailability no competitor can show.</p>
+    </div>
+    <div class="benefit-item">
+      <h4>No Staining. Ever.</h4>
+      <p>No staining of mouth, teeth, or glass. Every competitor product stains at least one of the three.</p>
+    </div>
+    <div class="benefit-item">
+      <h4>Deeper Green™</h4>
+      <p>Proprietary advanced absorption technology. Mechanism is confidential. The color change is the proof.</p>
+    </div>
+    <div class="benefit-item">
+      <h4>Uncontested Format</h4>
+      <p>No effervescent MB product exists anywhere in the market. LEUCO is not entering a competitive lane — it is creating one.</p>
+    </div>
+    <div class="benefit-item">
+      <h4>Precision Dose</h4>
+      <p>10mg per tablet. Consistent, targeted dosing in every serving.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 2 — PRODUCT OVERVIEW -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="product">
+  <span class="section-tag tag-green">SECTION 2</span>
+  <h2>Product Overview</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Element</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Brand</strong></td><td>Peak State by Essential Origins</td></tr>
+        <tr><td><strong>Product Name</strong></td><td>LEUCO Methylene Blue Fizz</td></tr>
+        <tr><td><strong>Technology</strong></td><td>Powered by Deeper Green™ (proprietary — mechanism confidential)</td></tr>
+        <tr><td><strong>Format</strong></td><td>Effervescent fizz tablets — 2 count, 10mg each</td></tr>
+        <tr><td><strong>MSRP</strong></td><td>$3.99 per 2-count retail</td></tr>
+        <tr><td><strong>D2C Format</strong></td><td>30-day supply — subscription with discount vs. one-time</td></tr>
+        <tr><td><strong>COGS</strong></td><td>Under $0.60 per 2-count pack</td></tr>
+        <tr><td><strong>Tagline</strong></td><td>Precision Energy. Controlled State.</td></tr>
+        <tr><td><strong>Slogan</strong></td><td>Clean. Precise. Powerful. Elevated.</td></tr>
+        <tr><td><strong>Owner</strong></td><td>Kent Rhodes / GF Tech One</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The Fizz Ritual — The Marketing Moment</h3>
+  <div class="callout callout-gold">
+    <div class="callout-icon">⚗️</div>
+    <p>Drop 1 tablet into 8–12 oz of water. Watch it fizz. Watch it transform from deep blue to vibrant green. LEUCO Methylene Blue is created before your eyes. This is the product demonstration no other MB brand can do.</p>
+  </div>
+
+  <div class="table-wrap" style="margin-top:1.1rem;">
+    <table>
+      <thead><tr><th>Step</th><th>What Happens</th><th>What It Means</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 — Drop</strong></td><td>Tablet enters 8–12 oz water</td><td>Precision dose, every time</td></tr>
+        <tr><td><strong>2 — Fizz</strong></td><td>Effervescent action begins instantly</td><td>Deeper Green™ technology activating</td></tr>
+        <tr><td><strong>3 — Transform</strong></td><td>Color changes from deep blue to vibrant green</td><td>LEUCO Methylene Blue being created in real time</td></tr>
+        <tr><td><strong>4 — LEUCO</strong></td><td>Drink. Experience the difference.</td><td>Bioactive form ready for maximum absorption</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>LEUCO vs. Regular Methylene Blue</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>LEUCO Methylene Blue (LMB)</th><th>Regular Methylene Blue</th></tr></thead>
+      <tbody>
+        <tr><td>Reduced — bioactive form</td><td>Oxidized form</td></tr>
+        <tr><td>Faster absorption, higher bioavailability</td><td>Slower absorption, lower bioavailability</td></tr>
+        <tr><td>More efficient cellular uptake</td><td>Less efficient cellular uptake</td></tr>
+        <tr><td>Crosses cell membranes more easily</td><td>Higher potential for oxidative stress</td></tr>
+        <tr><td>No staining of mouth, teeth, or glass</td><td>Blue staining of mouth, teeth, and glass</td></tr>
+        <tr><td>Cleaner — designed for daily use</td><td>General use, less targeted benefits</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 3 — TWO-PRODUCT ARCHITECTURE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="two-product">
+  <span class="section-tag tag-gold">SECTION 3</span>
+  <h2>Two-Product Architecture</h2>
+  <p class="section-intro">One product at launch. One product revealed at Day 45–60. The Fizz is the hero. The Blue Pill is the ladder that brings in a second buyer type and deepens the brand.</p>
+
+  <div class="callout callout-cream">
+    <div class="callout-icon">📐</div>
+    <p>Leading with both products at once splits the story, the content, and the budget. Leading with Fizz first lets one product prove the market before the second is introduced.</p>
+  </div>
+
+  <h3>The Two Products</h3>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Element</th><th>LEUCO MB Fizz — Hero</th><th class="gold">LEUCO MB Blue Pill — Ladder</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Format</strong></td><td>Effervescent fizz tablet</td><td>Swallowable capsule / pill</td></tr>
+        <tr><td><strong>Vitamin C</strong></td><td>Yes — included in formula</td><td>No — clean MB only</td></tr>
+        <tr><td><strong>COGS</strong></td><td>Under $0.60 (comparable)</td><td>Under $0.60 (comparable)</td></tr>
+        <tr><td><strong>Visual Demo</strong></td><td>The Fizz Ritual — blue to green transformation</td><td>None — standard format</td></tr>
+        <tr><td><strong>Differentiator</strong></td><td>Only effervescent MB on the market</td><td>Clean MB for the supplement stacker</td></tr>
+        <tr><td><strong>Primary Buyer</strong></td><td>Troscriptions defector, women's health biohacker</td><td>Nootropics stacker — already supplements Vitamin C</td></tr>
+        <tr><td><strong>Position</strong></td><td>Premium — the experience product</td><td>Entry / everyday — the clean format</td></tr>
+        <tr><td><strong>Launch Timing</strong></td><td>Day 1</td><td>Day 45–60</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Why Lead With Fizz, Not Both</h3>
+  <ul style="padding-left:1.2rem;margin-bottom:1.2rem;display:flex;flex-direction:column;gap:.55rem;">
+    <li style="font-size:.9rem;line-height:1.6;color:var(--text);">The Fizz Ritual is a content engine. One 15-second video sells the product before a dollar is spent on advertising. The Blue Pill has no visual hook — it relies on credibility built by Fizz first.</li>
+    <li style="font-size:.9rem;line-height:1.6;color:var(--text);">Two products at launch splits a $2,000 budget across two stories. One product concentrates every dollar behind the differentiator that already works.</li>
+    <li style="font-size:.9rem;line-height:1.6;color:var(--text);">Fizz builds the brand equity that makes the Blue Pill trustworthy. Introduce Blue Pill after the brand has proof, reviews, and subscribers behind it.</li>
+    <li style="font-size:.9rem;line-height:1.6;color:var(--text);">The Blue Pill's primary buyer — the supplement stacker who already takes Vitamin C — is a Phase 2 discovery, not a Phase 1 target.</li>
+  </ul>
+
+  <h3>Pricing Architecture</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Product</th><th>One-Time (30-day)</th><th>Subscribe &amp; Save</th><th>Position</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LEUCO MB Fizz</strong></td><td>$42–47</td><td>$36–40/month</td><td>Premium — the experience product</td></tr>
+        <tr><td><strong>LEUCO MB Blue Pill</strong></td><td>$32–37</td><td>$28–32/month</td><td>Entry — everyday clean MB</td></tr>
+        <tr><td><strong>Fizz + Blue Pill Bundle</strong></td><td>TBD</td><td>TBD</td><td>Power user stack — launch Month 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The Natural Upgrade Path</h3>
+  <div class="upgrade-steps">
+    <div class="upgrade-step">Try Blue Pill</div>
+    <div class="upgrade-arrow">→</div>
+    <div class="upgrade-step">Get MB Benefits</div>
+    <div class="upgrade-arrow">→</div>
+    <div class="upgrade-step">Watch a Fizz Video</div>
+    <div class="upgrade-arrow">→</div>
+    <div class="upgrade-step">Upgrade to Fizz</div>
+    <div class="upgrade-arrow">→</div>
+    <div class="upgrade-step">Subscribe to Fizz</div>
+  </div>
+  <p>Blue Pill buyers receive a targeted upsell email at Day 30 post-purchase. The email shows the Fizz Ritual transformation, explains the Vitamin C synergy, and offers a first-order Fizz discount — the upgrade path that builds lifetime value from the entry-price-point product.</p>
+
+  <h3>Staged Introduction Timeline</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Phase</th><th>Timing</th><th>Product</th><th>Channel Action</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Launch</strong></td><td>Day 1</td><td>Fizz only</td><td>TikTok Shop, Shopify, influencer seeding — all behind Fizz</td></tr>
+        <tr><td><strong>Amazon Fizz Live</strong></td><td>Day 30–45</td><td>Fizz only</td><td>Amazon first SKU with 10+ reviews pre-seeded</td></tr>
+        <tr><td><strong>Blue Pill Intro</strong></td><td>Day 45–60</td><td>Blue Pill added</td><td>Shopify 2nd product page, Amazon 2nd SKU, "Choose Your Format" email</td></tr>
+        <tr><td><strong>Stacker Push</strong></td><td>Month 3</td><td>Blue Pill featured</td><td>Nootropics seeding: "clean MB for the stacker who already takes Vitamin C"</td></tr>
+        <tr><td><strong>Marketplace</strong></td><td>Day 60+</td><td>Both SKUs</td><td>Thrive Market and iHerb list both Fizz and Blue Pill</td></tr>
+        <tr><td><strong>Bundle Launch</strong></td><td>Month 4</td><td>Fizz + Pill</td><td>Power user stack — email to subscribers first, then product page</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">📈</div>
+    <p><strong>The Blue Pill in Month 3: The Stacker's Choice</strong><br>By Month 3, the nootropics community knows LEUCO. The Blue Pill enters as "the clean MB for the stacker who already supplements Vitamin C separately." Two buyers, two products, one brand.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 4 — MARKET ANALYSIS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="market">
+  <span class="section-tag tag-green">SECTION 4</span>
+  <h2>Market Analysis</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Year</th><th>Market Size</th><th>Signal</th></tr></thead>
+      <tbody>
+        <tr><td>2024</td><td>~$17M</td><td>Baseline</td></tr>
+        <tr><td>2025</td><td>$30–38M</td><td>300%+ YoY search growth</td></tr>
+        <tr><td>2026 Base Case</td><td>$45–57M</td><td>50% growth trajectory</td></tr>
+        <tr><td>2026 Optimistic</td><td>$53–67M</td><td>75% growth trajectory</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Adjacent opportunities: Nootropics / brain health at $6B+ (15%+ annual growth) and longevity supplements at $67B (fastest-growing wellness segment). LEUCO sits at the intersection of both.</p>
+
+  <h3>Competitor Revenue</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Brand</th><th>Monthly Revenue</th><th>Primary Channel</th><th>Key Weakness</th></tr></thead>
+      <tbody>
+        <tr><td><strong>LVLUP Health</strong></td><td>~$492K/month</td><td>D2C website</td><td>4-ingredient complexity, high price ceiling</td></tr>
+        <tr><td><strong>Troscriptions</strong></td><td>~$252K/month</td><td>D2C + podcast + HCP</td><td>Nicotine, staining, 3.0/5 reviews — actively losing customers</td></tr>
+        <tr><td><strong>Compass Laboratory</strong></td><td>$80–130K/month</td><td>Clinical distribution</td><td>Zero consumer brand presence</td></tr>
+        <tr><td><strong>Meraki Medicinal</strong></td><td>~$54K/month</td><td>TikTok Shop</td><td>Trend-dependent, single channel, no defensible diff</td></tr>
+        <tr><td><strong>Healthletic</strong></td><td>Est. $40–60K/month</td><td>D2C subscription</td><td>45% subscription rate — best in category</td></tr>
+        <tr><td><strong>NooBlue</strong></td><td>$15–40K/month</td><td>SEO only</td><td>Cadmium contamination flagged, no brand</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Channel Distribution</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Channel</th><th>Annual Revenue</th><th>Market Share</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Amazon</strong></td><td>~$19M/year</td><td>50–63% of all MB sales</td></tr>
+        <tr><td><strong>D2C Branded Sites</strong></td><td>~$9M/year</td><td>Top 6 brands combined</td></tr>
+        <tr><td><strong>Compounding Pharmacy</strong></td><td>~$4–6M/year</td><td>Clinical/consumer crossover</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-navy">
+    <div class="callout-icon">🎯</div>
+    <div><strong>The Gap LEUCO Owns</strong><p>No effervescent MB product exists anywhere in the market. No visible bioavailability proof. No staining-free formula at the consumer level. LEUCO is not entering a competitive lane — it is creating one.</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 5 — CORE DEMOGRAPHICS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="demographics">
+  <span class="section-tag tag-gold">SECTION 5</span>
+  <h2>Core Demographics</h2>
+  <p class="section-intro">At $2,000/month the strategy is precision — not reach. Every dollar goes where the buyer already exists and is already dissatisfied. Broad market entry at this budget is a losing play. Targeted displacement is the winning play.</p>
+
+  <div class="phase-grid">
+    <div class="phase-card phase-1">
+      <h4>Phase 1 — Entry Wedge</h4>
+      <h3>The Troscriptions Defector</h3>
+      <p style="font-size:.83rem;color:var(--text);margin-bottom:.65rem;">The buyer who already knows MB, already spent money on it, and is actively looking for something better. Posting their frustration publicly right now.</p>
+      <ul>
+        <li>Age 28–55, predominantly male in Phase 1</li>
+        <li>$75K–$200K+ household income</li>
+        <li>Reddit, YouTube, Discord, TikTok</li>
+        <li>Already buying MB — zero education required</li>
+        <li>Frustrated by nicotine, staining, 3.0/5 reviews</li>
+      </ul>
+    </div>
+    <div class="phase-card phase-2">
+      <h4>Phase 2 — Expansion</h4>
+      <h3>Women's Health Biohackers</h3>
+      <p style="font-size:.83rem;color:var(--text);margin-bottom:.65rem;">The largest supplement-buying demographic no MB brand has ever addressed. Uncontested territory.</p>
+      <ul>
+        <li>Age 32–52, professional women</li>
+        <li>$80K–$180K — highest supplement spend</li>
+        <li>Instagram primary, TikTok secondary</li>
+        <li>Brain fog, clean energy, hormonal health</li>
+        <li>No competition — no MB brand has tried</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-cream">
+    <div class="callout-icon">⚠️</div>
+    <p><strong>Why NOT to Start Broad at $2,000/Month</strong><br>LVLUP ($492K/month) and Troscriptions ($252K/month) have established audiences, SEO, reviews, and distribution built over years. Entering their core market at $2,000/month is a frontal assault against entrenched competitors. Find the buyers those brands are already losing and the markets those brands have never entered.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 6 — TWO-PHASE STRATEGY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="phases">
+  <span class="section-tag tag-green">SECTION 6</span>
+  <h2>Two-Phase Market Entry Strategy</h2>
+
+  <h3>Phase 1 — The Troscriptions Defector (Months 1–2)</h3>
+  <div class="quote-block">"We built the MB product that doesn't compromise. No nicotine. No staining. You can watch it convert to the bioactive form in real time. That's the transparency this market has been missing."</div>
+
+  <h4>Phase 1 Five Messaging Pillars</h4>
+  <ul style="padding-left:1.2rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;">
+    <li style="font-size:.9rem;line-height:1.6;">No nicotine. Clean formula. Always.</li>
+    <li style="font-size:.9rem;line-height:1.6;">No staining of mouth, teeth, or glass. Ever.</li>
+    <li style="font-size:.9rem;line-height:1.6;">Watch it work. The Fizz Ritual converts MB to LEUCO in real time.</li>
+    <li style="font-size:.9rem;line-height:1.6;">USP pharmaceutical grade. COA published. Nothing to hide.</li>
+    <li style="font-size:.9rem;line-height:1.6;">The effervescent format designed for the buyer who wants precision.</li>
+  </ul>
+
+  <h3>Phase 2 — Women's Health Biohackers (Months 3–6)</h3>
+  <div class="quote-block">"Clean fuel for the woman who runs everything. No stimulants. No staining. Watch it work. LEUCO Methylene Blue Fizz — built for how you actually live."</div>
+
+  <h4>Phase 2 Five Messaging Pillars</h4>
+  <ul style="padding-left:1.2rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;">
+    <li style="font-size:.9rem;line-height:1.6;">Clean energy. No stimulants. No hormonal interference.</li>
+    <li style="font-size:.9rem;line-height:1.6;">No staining. Ever. Not your mouth. Not your teeth. Not your glass.</li>
+    <li style="font-size:.9rem;line-height:1.6;">Watch it transform — the ritual that proves it's working.</li>
+    <li style="font-size:.9rem;line-height:1.6;">Pharmaceutical grade. COA published. We tell you everything.</li>
+    <li style="font-size:.9rem;line-height:1.6;">The MB supplement built for women who read the label.</li>
+  </ul>
+
+  <div class="callout callout-gold">
+    <div class="callout-icon">⚕️</div>
+    <p><strong>Critical for Phase 2 — SSRI Disclosure</strong><br>Women are prescribed SSRIs at nearly twice the rate of men. The SSRI/MAOI interaction warning must appear on the label, the product page, and in all Phase 2 marketing. This is not a liability — it is a trust-builder. The brand that answers the hard questions converts the skeptical buyer.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 7 — CHANNELS -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="channels">
+  <span class="section-tag tag-green">SECTION 7</span>
+  <h2>Channel Strategy — Staged Entry</h2>
+  <p class="section-intro">Nine channels. Staged activation based on cost, readiness, and revenue potential. No channel activates until the prior conditions are met.</p>
+
+  <div class="channel-list">
+
+    <div class="channel-item">
+      <div class="channel-num">1</div>
+      <div class="channel-body">
+        <h4>TikTok Shop</h4>
+        <p>The Fizz Ritual is the most TikTok-native product demonstration in the supplement space. A 15-second video of the tablet turning green is the content hook that launches this brand. Meraki Medicinal hit $380K in 7 months with no visual hook. Every seeded influencer gets a TikTok Shop affiliate link. First brand content: the Fizz Ritual video — one take, no production.</p>
+      </div>
+      <div class="channel-badge badge-green">DAY 1 · FREE + 8%</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">2</div>
+      <div class="channel-body">
+        <h4>Shopify D2C + Affiliate (Shopify Collabs)</h4>
+        <p>The D2C site with subscription-first mechanics is the primary revenue asset. Every influencer seeded becomes an affiliate the moment they post — commission only, no upfront cost. Subscription prompt on product page, cart, and post-purchase email from Day 1. Target: 25%+ subscription rate by Day 60.</p>
+      </div>
+      <div class="channel-badge badge-green">DAY 1 · 12% AFFILIATE</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">3</div>
+      <div class="channel-body">
+        <h4>Micro-Influencer Seeding</h4>
+        <p>$750/month — product + shipping. At under $0.60 COGS, $750 seeds 44–50 influencers per month. Phase 1 targets: NootropicsExpert, Lucas Aoun, @angiogenic01, @biomaxxer, @timbiohacker. Phase 2: women's health, hormonal optimization, functional wellness 5K–60K. No script. No timeline. Honest reaction only.</p>
+      </div>
+      <div class="channel-badge badge-green">DAY 1 · $750/MO PRODUCT</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">4</div>
+      <div class="channel-body">
+        <h4>Community Engagement (Reddit, Discord, YouTube)</h4>
+        <p>Free. r/Nootropics (1.2M members), r/Biohackers, YouTube comments, Discord. The Troscriptions defector is posting their frustration publicly right now. Community engagement is free, targeted, and reaches the exact buyer at zero media cost. Rule: never lead with the product. Earn the right to mention it through value first. Target: 10+ organic LEUCO mentions by Day 90.</p>
+      </div>
+      <div class="channel-badge badge-green">DAY 1 · FREE</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">5</div>
+      <div class="channel-body">
+        <h4>Amazon</h4>
+        <p>$19M of the $30–38M MB market flows through Amazon. Seed 15–20 customers first, then email every customer personally requesting a review. Launch listing with 10+ reviews — a listing with zero reviews is invisible. A+ content: The Fizz Ritual transformation video as hero. No PPC until Month 3 with 25+ reviews. Blue Pill added as second SKU at Day 45–60.</p>
+      </div>
+      <div class="channel-badge badge-gold">DAY 30–45 · $40/MO</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">6</div>
+      <div class="channel-body">
+        <h4>Thrive Market &amp; iHerb</h4>
+        <p>Apply Month 1 / List Month 2–3. Revenue share only — no monthly fees, no upfront cost. Both take 4–8 weeks to onboard. Thrive Market members pay $59.99/year for curated clean wellness — this IS the LEUCO buyer. Update applications at Day 45–60 to include Blue Pill as a second SKU on both platforms.</p>
+      </div>
+      <div class="channel-badge badge-gold">MONTH 2–3 · REVENUE SHARE</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">7</div>
+      <div class="channel-body">
+        <h4>Newsletter Sponsorships</h4>
+        <p>Month 2. $200–500/placement. Small, high-trust biohacking newsletters reach the exact LEUCO buyer at a fraction of social ad cost. Target newsletters under 20,000 subscribers. Format: editorial mention written in newsletter voice — not display ad copy. One placement at ~$300/month.</p>
+      </div>
+      <div class="channel-badge badge-gold">MONTH 2 · $300/PLACEMENT</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">8</div>
+      <div class="channel-body">
+        <h4>Subscription Box Sampling</h4>
+        <p>Apply Month 1 / Ship Month 3. The Fizz Ritual is perfect for sampling — someone drops it in a glass, watches it turn green, and they are sold before they drink it. Lead time is 60–90 days for box inclusion. Apply immediately. Pitch: "The only MB that transforms in the glass."</p>
+      </div>
+      <div class="channel-badge badge-cream">MONTH 3 · COGS ONLY</div>
+    </div>
+
+    <div class="channel-item">
+      <div class="channel-num">9</div>
+      <div class="channel-body">
+        <h4>Podcasts</h4>
+        <p>Month 3+. $200–500/host read. Approach only after testimonials and subscription data are in hand. Targets: Peak Performance Life (Talor Zamir), Optimal Performance (Sean McCormick), Boost Your Biology (Lucas Aoun). Approach with COA + subscription rate + testimonials + 30-day trial offer.</p>
+      </div>
+      <div class="channel-badge badge-cream">MONTH 3+ · $200–500/READ</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 8 — STAGED TIMELINE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="timeline">
+  <span class="section-tag tag-green">SECTION 8</span>
+  <h2>Staged Channel Entry Timeline</h2>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Channel</th><th>Activate</th><th>Cost Model</th><th>Revenue Potential</th></tr></thead>
+      <tbody>
+        <tr><td><strong>TikTok Shop</strong></td><td>Day 1</td><td>Free + 8% commission</td><td>HIGH — Meraki proof at $380K/7mo</td></tr>
+        <tr><td><strong>Shopify D2C + Affiliate</strong></td><td>Day 1</td><td>Free + 12% affiliate</td><td>PRIMARY — subscription revenue asset</td></tr>
+        <tr><td><strong>Micro-Influencer Seeding</strong></td><td>Day 1</td><td>$750/mo product + shipping</td><td>HIGH — drives all other channels</td></tr>
+        <tr><td><strong>Community Engagement</strong></td><td>Day 1</td><td>Free</td><td>MEDIUM — trust and organic discovery</td></tr>
+        <tr><td><strong>Amazon — Fizz SKU</strong></td><td>Day 30–45</td><td>$39.99/mo + FBA fees</td><td>HIGH — 50–63% of market flows here</td></tr>
+        <tr><td><strong>Thrive Market</strong></td><td>Apply M1 / List M2–3</td><td>Revenue share only</td><td>MEDIUM — pre-qualified buyers</td></tr>
+        <tr><td><strong>iHerb</strong></td><td>Apply M1 / List M2–3</td><td>Commission only</td><td>MEDIUM — supplement-loyal audience</td></tr>
+        <tr><td><strong>Newsletter Sponsorships</strong></td><td>Month 2</td><td>$200–500/placement</td><td>MEDIUM — high trust, low cost</td></tr>
+        <tr><td><strong>Subscription Box Sampling</strong></td><td>Apply M1 / Ship M3</td><td>Product at COGS only</td><td>MEDIUM — experiential sell</td></tr>
+        <tr><td><strong>Blue Pill — second SKU</strong></td><td>Day 45–60</td><td>Shopify + Amazon 2nd SKU</td><td>MEDIUM — entry product + upgrade path to Fizz</td></tr>
+        <tr><td><strong>Paid Social (proven creative)</strong></td><td>Month 3</td><td>$400–800/month</td><td>MEDIUM — amplifies what works</td></tr>
+        <tr><td><strong>Podcasts</strong></td><td>Month 3+</td><td>$200–500/read</td><td>MEDIUM-HIGH — best with proof</td></tr>
+        <tr><td><strong>Women's Health — Phase 2</strong></td><td>Month 3</td><td>Influencer seeding + Instagram</td><td>HIGH — uncontested territory</td></tr>
+        <tr><td><strong>Fizz + Pill Bundle</strong></td><td>Month 4</td><td>Email to subscribers first</td><td>MEDIUM-HIGH — increases LTV</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 9 — WEBSITE -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="website">
+  <span class="section-tag tag-gold">SECTION 9</span>
+  <h2>Website Build Requirements</h2>
+
+  <div class="callout callout-cream">
+    <div class="callout-icon">🔴</div>
+    <p>A website must be live before Day 1 of marketing. Platform: <strong>Shopify</strong> — built-in subscription mechanics, TikTok Shop integration, Amazon channel sync, and Shopify Collabs affiliate management in one platform.</p>
+  </div>
+
+  <h3>Must-Have Elements at Launch</h3>
+  <ul class="checklist">
+    <li><strong>HERO:</strong> The Fizz Ritual video above the fold — the transformation is the product demonstration</li>
+    <li><strong>SUBSCRIPTION:</strong> Subscribe and save as the primary CTA — one-time purchase is secondary</li>
+    <li><strong>TRUST:</strong> COA published — the actual document, downloadable, visible — not "request COA"</li>
+    <li><strong>EDUCATION:</strong> LEUCO vs. Regular MB comparison — the science, in plain language</li>
+    <li><strong>DISCLOSURE:</strong> SSRI/MAOI disclosure and FAQ — transparent, not buried in fine print</li>
+    <li><strong>LIST BUILD:</strong> Email capture — COA download in exchange for email address</li>
+    <li><strong>GUARANTEE:</strong> No staining guarantee — prominent, specific (mouth, teeth, glass)</li>
+    <li><strong>MOBILE:</strong> Mobile-first design — majority of traffic from influencer posts is mobile</li>
+  </ul>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Item</th><th>Cost</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Shopify Basic Plan</td><td>$105/month</td><td>Ongoing</td></tr>
+        <tr><td>Domain name</td><td>$15–20/year</td><td>One-time annual</td></tr>
+        <tr><td>Premium theme</td><td>$200–350</td><td>One-time</td></tr>
+        <tr><td>Website design &amp; build</td><td>$1,500–3,000</td><td>One-time — varies by builder</td></tr>
+        <tr><td>Seal Subscriptions app</td><td>$0–60/month</td><td>Free tier available</td></tr>
+        <tr><td>TikTok Shop integration</td><td>Free</td><td>Built into Shopify</td></tr>
+        <tr><td>Shopify Collabs affiliate</td><td>Free</td><td>Built into Shopify</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 10 — BUDGET -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="budget">
+  <span class="section-tag tag-green">SECTION 10</span>
+  <h2>Full Monthly Program Budget</h2>
+
+  <div class="callout callout-green">
+    <div class="callout-icon">💰</div>
+    <p>The $2,000 advertising budget covers media and seeding. Commission costs are paid from revenue — not from budget. One-time website and legal setup are incurred before launch.</p>
+  </div>
+
+  <h3>Month 1 — Full Program Cost</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Line Item</th><th>Category</th><th>Monthly Cost</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Advertising &amp; media</strong></td><td>Advertising</td><td>$2,000</td><td>Influencer seeding, content boosting, newsletter</td></tr>
+        <tr><td>Shopify subscription</td><td>Platform</td><td>$105</td><td>Includes TikTok Shop + Collabs</td></tr>
+        <tr><td>Klaviyo email (starter)</td><td>Platform</td><td>$45</td><td>Up to 1,000 contacts</td></tr>
+        <tr><td>Website build</td><td>Setup</td><td>$1,500–3,000</td><td>ONE-TIME</td></tr>
+        <tr><td>Domain + hosting</td><td>Setup</td><td>$20</td><td>Annual, shown monthly</td></tr>
+        <tr><td>Regulatory attorney review</td><td>Compliance</td><td>$500–1,500</td><td>ONE-TIME — before any copy goes live</td></tr>
+        <tr><td><strong>TOTAL Month 1</strong></td><td></td><td><strong>$4,170–6,670</strong></td><td>Includes one-time setup</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Month 2+ — Recurring Monthly Run Rate</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Line Item</th><th>Monthly Cost</th></tr></thead>
+      <tbody>
+        <tr><td>Advertising &amp; media spend</td><td>$2,000</td></tr>
+        <tr><td>Shopify subscription</td><td>$105</td></tr>
+        <tr><td>Klaviyo email (growing)</td><td>$45–150</td></tr>
+        <tr><td>Amazon Professional Seller (from Day 30–45)</td><td>$40</td></tr>
+        <tr><td><strong>TOTAL Recurring</strong></td><td><strong>$2,190–2,495/month</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Commission-Based (Paid from Revenue)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Channel</th><th>Rate</th></tr></thead>
+      <tbody>
+        <tr><td>TikTok Shop</td><td>8% of sale</td></tr>
+        <tr><td>Shopify Affiliate (Collabs)</td><td>12% of sale</td></tr>
+        <tr><td>Thrive Market</td><td>Revenue share TBD</td></tr>
+        <tr><td>iHerb</td><td>Commission TBD</td></tr>
+        <tr><td>Subscription Box</td><td>None — product at COGS</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 11 — KPIs -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="kpis">
+  <span class="section-tag tag-green">SECTION 11</span>
+  <h2>Key Performance Indicators</h2>
+
+  <div class="callout callout-navy">
+    <div class="callout-icon">📊</div>
+    <div><strong>The Single Most Important Metric</strong><p>Subscription rate at Day 90. Above 30% = the business model works. Below 15% = fix the product experience or messaging before spending another dollar.</p></div>
+  </div>
+
+  <div class="table-wrap" style="margin-top:1.1rem;">
+    <table>
+      <thead><tr><th>Metric</th><th>Day 30</th><th>Day 60</th><th>Day 90</th></tr></thead>
+      <tbody>
+        <tr><td>Influencers seeded</td><td>20</td><td>45</td><td>65+</td></tr>
+        <tr><td>TikTok content pieces live</td><td>5–8</td><td>20+</td><td>40+</td></tr>
+        <tr><td>Email list size</td><td>75–150</td><td>200–350</td><td>400–600</td></tr>
+        <tr><td>Cost per email captured</td><td>—</td><td>Under $6</td><td>Under $4</td></tr>
+        <tr><td>Customers (all channels)</td><td>15–30</td><td>50–90</td><td>100–150</td></tr>
+        <tr><td>Subscription rate</td><td>Tracking</td><td>20%+</td><td>30%+</td></tr>
+        <tr><td>Amazon listing live</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+        <tr><td>Amazon reviews</td><td>—</td><td>10–15</td><td>25+</td></tr>
+        <tr><td>Organic community mentions</td><td>—</td><td>3+</td><td>10+</td></tr>
+        <tr><td>Phase 2 (Women's Health) live</td><td>No</td><td>No</td><td>Yes</td></tr>
+        <tr><td>Thrive Market / iHerb listed</td><td>No</td><td>Applied</td><td>Live</td></tr>
+        <tr><td>Blue Pill live (Shopify + Amazon)</td><td>No</td><td>Yes (Day 45–60)</td><td>Yes</td></tr>
+        <tr><td>Blue Pill upsell email open rate</td><td>—</td><td>Tracking</td><td>35%+</td></tr>
+        <tr><td>Fizz upgrades from Blue Pill buyers</td><td>—</td><td>Tracking</td><td>10%+ of Blue Pill buyers</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:2rem;text-align:center;">
+    <a href="implementation-plan.html" style="display:inline-block;background:var(--navy);color:#FFD54F;text-decoration:none;padding:.85rem 2rem;border-radius:6px;font-weight:700;font-size:.9rem;letter-spacing:.04em;">View the 90-Day Implementation Plan →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>LEUCO Methylene Blue Fizz by Peak State</strong> · Powered by Deeper Green™ · <strong>Horsepower AI</strong> · Confidential · May 2026<br>
+  <div class="footer-legal">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</div>
+</footer>
+
+</body>
+</html>

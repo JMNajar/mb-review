@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LEUCO 90-Day Implementation Plan | MB-Review</title>
+  <style>
+    :root {
+      --navy:   #1B4332;
+      --gold:   #D4A017;
+      --green:  #2D6B2D;
+      --lgreen: #E8F5E9;
+      --lgold:  #FFF8E1;
+      --cream:  #F5EDE0;
+      --white:  #FFFFFF;
+      --light:  #FAFAF8;
+      --border: #DDE3ED;
+      --text:   #1a2535;
+      --muted:  #5a6a80;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; color: var(--text); background: var(--light); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: #FEFCE8; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.06);
+      min-height: 60px;
+    }
+    .nav-brand { color: var(--navy); font-size: 1.05rem; font-weight: 800; letter-spacing: .08em; }
+    .nav-brand span { color: var(--gold); }
+    .nav-links { display: flex; gap: .15rem; flex-wrap: wrap; }
+    .nav-links a {
+      color: var(--navy); text-decoration: none; font-size: .78rem; font-weight: 600;
+      padding: .45rem .7rem; border-radius: 4px; letter-spacing: .03em;
+      transition: background .2s; white-space: nowrap;
+    }
+    .nav-links a:hover { background: rgba(27,67,50,.1); }
+    .nav-links a.active { background: var(--navy); color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1B4332 0%, #2D5A3D 100%);
+      color: #fff; padding: 4rem 2rem 3rem; text-align: center;
+    }
+    .hero-tag {
+      display: inline-block; background: rgba(212,160,23,.2);
+      color: #FFD54F; font-size: .72rem; font-weight: 700;
+      letter-spacing: .1em; padding: .3rem .9rem; border-radius: 20px;
+      border: 1px solid rgba(212,160,23,.4); margin-bottom: 1.1rem;
+    }
+    .hero h1 { font-size: 2.4rem; font-weight: 800; line-height: 1.15; margin-bottom: .65rem; }
+    .hero h1 span { color: #FFD54F; }
+    .hero p { color: #A5D6A7; font-size: 1rem; max-width: 640px; margin: 0 auto 2rem; }
+    .stat-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .stat-card {
+      background: rgba(255,255,255,.09); border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px; padding: 1rem 1.4rem; min-width: 130px; text-align: center;
+    }
+    .stat-card .num { font-size: 1.7rem; font-weight: 800; color: #fff; }
+    .stat-card .lbl { font-size: .67rem; color: #A5D6A7; font-weight: 600; letter-spacing: .06em; margin-top: .2rem; }
+
+    /* PAGE NAV */
+    .page-nav {
+      background: #FEFCE8; border-bottom: 1px solid var(--border);
+      padding: .55rem 2rem; display: flex; gap: .35rem; flex-wrap: wrap;
+    }
+    .page-nav a {
+      font-size: .75rem; font-weight: 600; color: var(--navy);
+      text-decoration: none; padding: .25rem .65rem; border-radius: 4px; white-space: nowrap;
+    }
+    .page-nav a:hover { background: var(--lgreen); }
+
+    /* LAYOUT */
+    section { max-width: 960px; margin: 0 auto; padding: 3rem 2rem; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-tag {
+      display: inline-block; font-size: .68rem; font-weight: 700; letter-spacing: .1em;
+      padding: .28rem .75rem; border-radius: 20px; margin-bottom: .65rem;
+    }
+    .tag-green { background: var(--lgreen); color: var(--navy); }
+    .tag-gold  { background: var(--lgold);  color: #8B6914; }
+    .tag-cream { background: var(--cream);  color: var(--navy); }
+
+    h2 { font-size: 1.65rem; font-weight: 800; margin-bottom: .4rem; color: var(--navy); }
+    h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 1.5rem 0 .45rem; }
+    h4 { font-size: .85rem; font-weight: 700; color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin: 1.25rem 0 .4rem; }
+    .section-intro { color: var(--muted); font-size: .95rem; margin-bottom: 1.75rem; max-width: 740px; line-height: 1.65; }
+    p { font-size: .92rem; color: var(--text); line-height: 1.65; margin-bottom: .75rem; }
+
+    /* TABLES */
+    .table-wrap { overflow-x: auto; margin-bottom: 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: .86rem; }
+    thead th {
+      background: var(--navy); color: #fff; text-align: left;
+      padding: .65rem .9rem; font-size: .74rem; font-weight: 700; letter-spacing: .05em;
+    }
+    tbody tr:nth-child(even) { background: var(--light); }
+    tbody tr:hover { background: var(--lgreen); }
+    tbody td { padding: .6rem .9rem; border-bottom: 1px solid var(--border); vertical-align: top; line-height: 1.5; }
+    tbody tr:last-child td { border-bottom: none; }
+    td strong { color: var(--navy); }
+
+    /* CALLOUTS */
+    .callout {
+      border-radius: 8px; padding: 1.1rem 1.4rem; margin: 1.1rem 0;
+      display: flex; gap: .85rem; align-items: flex-start;
+    }
+    .callout-green { background: var(--lgreen); border-left: 4px solid var(--green); }
+    .callout-gold  { background: var(--lgold);  border-left: 4px solid var(--gold); }
+    .callout-cream { background: var(--cream);  border-left: 4px solid var(--navy); }
+    .callout-red   { background: #fff0f0;       border-left: 4px solid #c0392b; }
+    .callout-navy  { background: var(--navy);   border-left: 4px solid #FFD54F; }
+    .callout-icon  { font-size: 1.3rem; line-height: 1; flex-shrink: 0; }
+    .callout p     { font-size: .88rem; line-height: 1.6; margin: 0; }
+    .callout-navy p { color: #A5D6A7; }
+    .callout strong { display: block; font-size: .83rem; font-weight: 700; margin-bottom: .25rem; color: var(--navy); }
+    .callout-navy strong { color: #FFD54F; }
+
+    /* CHECKLIST */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1.25rem; }
+    .checklist li {
+      display: flex; gap: .7rem; font-size: .87rem; line-height: 1.55;
+      color: var(--text); padding: .45rem .75rem;
+      background: var(--white); border: 1px solid var(--border); border-radius: 6px;
+    }
+    .checklist li::before { content: '□'; font-size: .95rem; color: var(--navy); flex-shrink: 0; line-height: 1.45; }
+
+    /* WEEK BLOCKS */
+    .week-block {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.4rem 1.6rem; margin-bottom: 1.1rem;
+    }
+    .week-header {
+      display: flex; align-items: center; gap: .85rem; margin-bottom: 1rem;
+    }
+    .week-badge {
+      background: var(--navy); color: #FFD54F; font-size: .7rem; font-weight: 800;
+      letter-spacing: .08em; padding: .35rem .85rem; border-radius: 20px; white-space: nowrap;
+    }
+    .week-badge.gold  { background: var(--gold); color: #fff; }
+    .week-badge.green { background: var(--green); color: #fff; }
+    .week-badge.amber { background: #e65100; color: #fff; }
+    .week-title { font-size: 1rem; font-weight: 700; color: var(--navy); }
+    .week-sub { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
+
+    .day-item { margin-bottom: 1rem; }
+    .day-label { font-size: .75rem; font-weight: 800; color: var(--gold); letter-spacing: .08em; text-transform: uppercase; margin-bottom: .3rem; }
+    .day-body { font-size: .87rem; color: var(--text); line-height: 1.6; }
+    .day-body ul { padding-left: 1.1rem; display: flex; flex-direction: column; gap: .3rem; margin-top: .35rem; }
+    .day-body li { font-size: .85rem; line-height: 1.55; }
+
+    /* EMAIL BLOCKS */
+    .email-block {
+      background: var(--white); border: 1px solid var(--border); border-radius: 8px;
+      padding: 1.25rem 1.5rem; margin-bottom: 1rem;
+    }
+    .email-header { display: flex; align-items: baseline; gap: .75rem; margin-bottom: .75rem; }
+    .email-num { font-size: 1.2rem; font-weight: 800; color: var(--navy); line-height: 1; }
+    .email-title { font-size: .92rem; font-weight: 700; color: var(--navy); }
+    .email-subject { font-size: .8rem; color: var(--gold); font-weight: 700; margin-bottom: .6rem; }
+    .email-body { font-size: .85rem; color: var(--text); line-height: 1.7; white-space: pre-line; }
+
+    /* COPY BLOCK */
+    .copy-block {
+      background: #f8fdf9; border: 1px solid #c8e6c9; border-radius: 8px;
+      padding: 1.25rem 1.5rem; margin-bottom: 1.1rem; font-size: .87rem;
+      color: var(--text); line-height: 1.75;
+    }
+    .copy-label { font-size: .68rem; font-weight: 800; color: var(--navy); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+    .copy-head { font-size: 1.1rem; font-weight: 800; color: var(--navy); margin-bottom: .3rem; }
+    .copy-sub { font-size: .9rem; color: var(--muted); margin-bottom: .75rem; font-style: italic; }
+
+    /* QUOTE */
+    .quote-block {
+      background: var(--navy); border-radius: 8px; padding: 1.4rem 1.75rem;
+      margin: 1.4rem 0; color: #A5D6A7; font-size: .98rem;
+      font-style: italic; line-height: 1.65; border-left: 4px solid #FFD54F;
+    }
+
+    /* FOOTER */
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 2.5rem 2rem; text-align: center; font-size: .8rem; }
+    footer strong { color: #FFD54F; }
+    .footer-legal { font-size: .72rem; color: rgba(255,255,255,.4); margin-top: .5rem; }
+
+    /* HAMBURGER */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; background: none; border: none; cursor: pointer; padding: .5rem;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--navy); border-radius: 2px; transition: transform .25s, opacity .25s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.7rem; }
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; background: #FEFCE8;
+        padding: .5rem 1rem 1rem; box-shadow: 0 4px 12px rgba(0,0,0,.12); gap: .2rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-links a { padding: .7rem 1rem; font-size: .9rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-brand">MB<span>-REVIEW</span></div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="index.html">Market Intelligence</a>
+    <a href="marketing-plan.html">Marketing Plan</a>
+    <a href="implementation-plan.html" class="active">Implementation Plan</a>
+    <a href="easyriders.html" style="background:#c0392b;color:#fff;border-radius:4px;">Easyriders JV</a>
+  </div>
+</nav>
+<script>
+  const btn = document.getElementById('hamburger');
+  const links = document.getElementById('nav-links');
+  btn.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    btn.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open);
+  });
+  links.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    links.classList.remove('open');
+    btn.classList.remove('open');
+    btn.setAttribute('aria-expanded', false);
+  }));
+</script>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-tag">LEUCO MB FIZZ · PEAK STATE · HORSEPOWER AI · MAY 2026</div>
+  <h1>LEUCO Methylene Blue Fizz<br><span>90-Day Implementation Plan</span></h1>
+  <p>Week-by-week execution. Pre-launch checklist. Email sequences. Influencer brief. Landing page copy. Website spec.</p>
+  <div class="stat-row">
+    <div class="stat-card"><div class="num">90</div><div class="lbl">Day Program</div></div>
+    <div class="stat-card"><div class="num">9</div><div class="lbl">Sections</div></div>
+    <div class="stat-card"><div class="num">Day 1</div><div class="lbl">Fizz Launches</div></div>
+    <div class="stat-card"><div class="num">Day 45</div><div class="lbl">Blue Pill Live</div></div>
+    <div class="stat-card"><div class="num">Month 3</div><div class="lbl">Phase 2 Live</div></div>
+  </div>
+</div>
+
+<!-- PAGE NAV -->
+<div class="page-nav">
+  <a href="#checklist">Pre-Launch Checklist</a>
+  <a href="#calendar">90-Day Calendar</a>
+  <a href="#amazon-mining">Amazon Mining</a>
+  <a href="#community">Community Playbook</a>
+  <a href="#lp-phase1">Phase 1 Landing Page</a>
+  <a href="#lp-phase2">Phase 2 Landing Page</a>
+  <a href="#emails">Email Sequences</a>
+  <a href="#influencer-brief">Influencer Brief</a>
+  <a href="#website-spec">Website Spec</a>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 1 — PRE-LAUNCH CHECKLIST -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="checklist">
+  <span class="section-tag tag-green">SECTION 1</span>
+  <h2>Pre-Launch Checklist</h2>
+  <p class="section-intro">Nothing goes to market until every item on this list is complete. These are the conditions that make the marketing work.</p>
+
+  <div class="callout callout-red">
+    <div class="callout-icon">🔴</div>
+    <p>Complete before Day 1. If any item is missing on launch day, delay the launch — not the checklist.</p>
+  </div>
+
+  <h3>Legal &amp; Compliance</h3>
+  <ul class="checklist">
+    <li>Supplement regulatory attorney has reviewed all label copy and marketing language</li>
+    <li>Structure/function language only — zero disease claims in any material</li>
+    <li>DSHEA disclaimer on all marketing materials, website, and email</li>
+    <li>SSRI/MAOI interaction warning on label, product page, and influencer brief</li>
+    <li>Blue/green urine discoloration disclosed proactively on product page and FAQ</li>
+    <li>Deeper Green™ technology described as proprietary — no mechanism disclosed publicly</li>
+  </ul>
+
+  <h3>Product &amp; Inventory</h3>
+  <ul class="checklist">
+    <li>COA completed, third-party verified, and ready to publish — not "available upon request"</li>
+    <li>Inventory count confirmed for BOTH Fizz and Blue Pill — seeding budget adjusted accordingly</li>
+    <li>30-day supply format confirmed and packaging approved for BOTH formats</li>
+    <li>D2C pricing finalized: Fizz one-time and subscribe-and-save / Blue Pill one-time and subscribe-and-save</li>
+    <li>Product ships within 24 hours of influencer response — fulfillment process confirmed for Fizz</li>
+    <li>Blue Pill launch date confirmed: target Day 45–60 — inventory in hand before Day 45</li>
+    <li>Blue Pill Shopify product page drafted — ready to publish at Day 45–60 trigger</li>
+  </ul>
+
+  <h3>Digital Infrastructure</h3>
+  <ul class="checklist">
+    <li>Shopify store built, mobile-tested, and live</li>
+    <li>Subscribe-and-save enabled from Day 1 on Shopify</li>
+    <li>Shopify Collabs (affiliate program) set up — 12% commission rate</li>
+    <li>TikTok Shop account created and linked to Shopify</li>
+    <li>Klaviyo account created — Phase 1 welcome sequence loaded and tested</li>
+    <li>Phase 1 email capture landing page live and tested — COA delivered on submit</li>
+    <li>COA published on website — downloadable PDF, not gated behind a form</li>
+    <li>Amazon seller account created (Professional, $39.99/month) — listing drafted</li>
+    <li>Reddit accounts active with 30-day history before first engagement</li>
+    <li>Thrive Market application submitted</li>
+    <li>iHerb application submitted</li>
+    <li>Subscription box outreach sent</li>
+  </ul>
+
+  <h3>Content &amp; Assets</h3>
+  <ul class="checklist">
+    <li>Fizz Ritual video filmed — tablet drops blue, transforms green, 15–30 seconds</li>
+    <li>Product photography complete — tablet, packaging, glass transformation sequence</li>
+    <li>One-page influencer brief printed and ready to ship with product</li>
+    <li>Phase 1 influencer list of 25 confirmed and DMs drafted</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 2 — 90-DAY CALENDAR -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="calendar">
+  <span class="section-tag tag-green">SECTION 2</span>
+  <h2>90-Day Week-by-Week Execution Calendar</h2>
+
+  <!-- WEEK 1 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge">WEEK 1 · DAYS 1–7</span>
+      <div>
+        <div class="week-title">Build the Foundation</div>
+        <div class="week-sub">Nothing goes to market this week. Everything that goes to market later depends on this week being done right.</div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 1 — Amazon Review Mining</div>
+      <div class="day-body">Pull every 1, 2, and 3-star review from Troscriptions, LVLUP, Meraki, and NooBlue on Amazon. Document exact complaint language. Identify the top 5 recurring complaints. Do not write a single piece of marketing copy until this is done.
+        <ul>
+          <li>Output: Completed Voice of Customer document. Top 5 complaint themes identified.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 2 — Community Monitoring Setup</div>
+      <div class="day-body">
+        <ul>
+          <li>Create Reddit accounts on r/Nootropics, r/Biohackers, r/supplements, r/StackAdvice</li>
+          <li>Set keyword alerts: "methylene blue," "Troscriptions review," "MB alternative," "clean MB"</li>
+          <li>Join Discord: Biohacker Lounge, Nootropics and Cognitive Enhancement, Life Extension</li>
+          <li>Bookmark Troscriptions YouTube comment sections — do not post yet. Listen 48 hours first.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 3–4 — Phase 1 Landing Page Live</div>
+      <div class="day-body">
+        <ul>
+          <li>Build on Shopify. Mobile-first design. Full copy in Section 5.</li>
+          <li>Test: email submit → COA delivered → Klaviyo welcome sequence triggers</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 4–5 — Klaviyo Welcome Sequence Loaded</div>
+      <div class="day-body">
+        <ul>
+          <li>Email 1: Immediate on submit — "Why we built LEUCO"</li>
+          <li>Email 2: Day 3 — "Three questions nobody else answers about methylene blue"</li>
+          <li>Email 3: Day 10 — "Ready when you are" — soft purchase offer</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 5–6 — Shopify Subscription + TikTok Shop + Affiliate</div>
+      <div class="day-body">
+        <ul>
+          <li>Subscribe-and-save enabled — appears on product page, cart, and post-purchase email</li>
+          <li>TikTok Shop linked to Shopify — products synced, checkout enabled in-app</li>
+          <li>Shopify Collabs activated — 12% affiliate commission rate set</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 6–7 — Influencer List Confirmed</div>
+      <div class="day-body">
+        <ul>
+          <li>Verify 25 Phase 1 influencers are active (posted in last 30 days)</li>
+          <li>Personalize first line of each DM — reference their specific recent content</li>
+          <li>25 DMs drafted and ready to send</li>
+        </ul>
+      </div>
+    </div>
+
+    <h4>Week 1 Completion</h4>
+    <ul class="checklist">
+      <li>Voice of Customer document complete</li>
+      <li>Community monitoring active</li>
+      <li>Landing page live and tested</li>
+      <li>Klaviyo sequence loaded and tested</li>
+      <li>TikTok Shop live and Shopify Collabs active</li>
+      <li>25 influencer DMs drafted</li>
+    </ul>
+  </div>
+
+  <!-- WEEK 2 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge green">WEEK 2 · DAYS 8–14</span>
+      <div>
+        <div class="week-title">Go Live</div>
+        <div class="week-sub">First community engagements. First influencer outreach. First content in market.</div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 8 — First Community Engagements</div>
+      <div class="day-body">Go into r/Nootropics and find the 3 most active MB threads from the last 7 days. Read every comment before posting. Make one genuinely helpful contribution to each thread. Do not mention LEUCO yet.
+        <ul>
+          <li>Daily from Day 8: 20 minutes of monitoring, one meaningful engagement per platform</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 9–10 — First Influencer Outreach Wave</div>
+      <div class="day-body">
+        <ul>
+          <li>Send DMs to first 15 influencers — lead with NootropicsExpert and Lucas Aoun</li>
+          <li>Log every outreach: name, platform, date sent, responded, product shipped, content live</li>
+          <li>Post the Fizz Ritual video to brand TikTok — organic, no spend</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 11–14 — Product Ships to Respondents</div>
+      <div class="day-body">
+        <ul>
+          <li>Ship product within 24 hours of positive response</li>
+          <li>Include one-page influencer brief + printed COA in every package</li>
+          <li>Follow-up DM when delivery confirmed: "Just saw it arrived — any questions before you try it?"</li>
+          <li>No ask for posting timeline. No pressure.</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="checklist">
+      <li>15+ community engagements live</li>
+      <li>15 influencer DMs sent</li>
+      <li>Fizz Ritual video posted to brand TikTok</li>
+      <li>Product shipped to all respondents</li>
+    </ul>
+  </div>
+
+  <!-- WEEK 3 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge">WEEK 3 · DAYS 15–21</span>
+      <div><div class="week-title">Build Momentum</div></div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 15–17 — Second Influencer Wave</div>
+      <div class="day-body">
+        <ul>
+          <li>Send DMs to next 10 influencers</li>
+          <li>Adjust DM copy based on response rate from Wave 1 — test one variable at a time</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 15–21 — Escalate Community Engagement</div>
+      <div class="day-body">Escalate from one engagement per platform to two. Watch for: threads where someone mentions Troscriptions negatively, threads asking for MB alternatives, threads about supplement purity. When directly asked for a recommendation, introduce LEUCO — after establishing yourself as a helpful voice first.
+        <ul>
+          <li>Never post the same comment in multiple threads — triggers spam detection</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 18–21 — First Content Appears</div>
+      <div class="day-body">
+        <ul>
+          <li>Monitor every seeded influencer account daily for their LEUCO post</li>
+          <li>Engage immediately in comments when a post goes live — answer every question</li>
+          <li>Document which angle they led with: Fizz Ritual / No Staining / Formula / COA</li>
+          <li>That data tells you which content angle converts this audience</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="checklist">
+      <li>25+ total influencers contacted</li>
+      <li>5–8 pieces of content live</li>
+      <li>Daily community engagement running — 2 per platform</li>
+      <li>First content angles documented</li>
+    </ul>
+  </div>
+
+  <!-- WEEK 4 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge gold">WEEK 4 · DAYS 22–28</span>
+      <div>
+        <div class="week-title">Evaluate and Learn</div>
+        <div class="week-sub">No new tactics this week. Learn from what is in market.</div>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 22 — Content Audit</div>
+      <div class="day-body">
+        <ul>
+          <li>Document every live piece: platform, angle, engagement rate (comments + saves / views)</li>
+          <li>Flag all purchase-intent comments ("where do I get this," "how much," "I need this")</li>
+          <li>Identify top 2–3 performing posts by engagement rate</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 23 — Email Audit</div>
+      <div class="day-body">
+        <ul>
+          <li>Email list size to date</li>
+          <li>Email 1 open rate — target 45%+</li>
+          <li>Email 1 click rate — target 8%+</li>
+          <li>COA download rate — high download rate means serious evaluators</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 24 — Community Audit</div>
+      <div class="day-body">
+        <ul>
+          <li>How many threads engaged?</li>
+          <li>Any organic LEUCO mentions — someone recommending it without you in the thread?</li>
+          <li>That organic mention is the most important signal in the entire campaign</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="checklist">
+      <li>Content audit complete — top 2–3 posts identified</li>
+      <li>Email audit complete</li>
+      <li>Community audit complete</li>
+      <li>Adjustments documented and implemented</li>
+    </ul>
+  </div>
+
+  <!-- WEEKS 5–6 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge">WEEKS 5–6 · DAYS 29–42</span>
+      <div><div class="week-title">Amplify</div></div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 29 — Content Boosting</div>
+      <div class="day-body">From the content audit, identify the top 2–3 performing posts. Boost each with $20–50. TikTok: use TikTok Promote. Instagram: boost as partnership ad with creator permission. Rule: only boost what already proved it works for free.
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 30 — Third Influencer Wave</div>
+      <div class="day-body">
+        <ul>
+          <li>Outreach to next 15 influencers — 40+ total contacted</li>
+          <li>Reference live content in outreach: "A few pieces are already in market — happy to share"</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 30–45 — Amazon Listing Goes Live</div>
+      <div class="day-body">
+        <ul>
+          <li>Email every customer personally: "Would you be willing to leave us a review on Amazon?"</li>
+          <li>Launch listing only after 10+ review commitments confirmed</li>
+          <li>Amazon A+ content: Fizz Ritual transformation video as hero</li>
+          <li>No Amazon PPC yet — organic listing only until 25+ reviews</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 35–42 — Testimonial Capture</div>
+      <div class="day-body">
+        <ul>
+          <li>Email every customer personally — not automated. "You ordered X days ago — what are you noticing?"</li>
+          <li>For every positive response: ask for Amazon review + permission to quote publicly</li>
+          <li>For every negative response: diagnose the issue and fix it before scaling anything</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="checklist">
+      <li>Top 2–3 posts boosted</li>
+      <li>Third influencer wave sent — 40+ total</li>
+      <li>Amazon listing live with 10+ reviews</li>
+      <li>Testimonials captured from first customers</li>
+      <li>Email list at 150–250</li>
+    </ul>
+  </div>
+
+  <!-- WEEK 7 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge amber">WEEK 7 · DAYS 43–49</span>
+      <div>
+        <div class="week-title">Phase 1 Checkpoint + Blue Pill Launch</div>
+        <div class="week-sub">Four conditions must be met before Phase 2 launches. Simultaneously: the Blue Pill goes live.</div>
+      </div>
+    </div>
+
+    <h4>Phase 1 Checkpoint — All Four Required Before Phase 2</h4>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Condition</th><th>Target</th><th>If Not Met</th></tr></thead>
+        <tbody>
+          <tr><td>Testimonials in real customer language</td><td>5+ usable quotes</td><td>Reach out to every customer personally</td></tr>
+          <tr><td>Proven content angle identified</td><td>1 clear winner</td><td>Seed 10 more influencers before evaluating</td></tr>
+          <tr><td>Subscription rate</td><td>15%+</td><td>Test new pricing or messaging</td></tr>
+          <tr><td>Content library</td><td>20+ pieces live</td><td>Increase outreach response rate — adjust DM copy</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout callout-green">
+      <div class="callout-icon">🚀</div>
+      <p><strong>Days 45–60 — Blue Pill Goes Live</strong><br>The Fizz has proven the brand. Now introduce the second format. "Choose your ritual." Blue Pill is the entry product. Fizz is the upgrade.</p>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Blue Pill Launch Actions</div>
+      <div class="day-body">
+        <ul>
+          <li>Publish the Blue Pill Shopify product page — cross-link to Fizz: "Prefer to swallow? Try the Blue Pill."</li>
+          <li>Add Blue Pill as a second SKU to the Amazon listing</li>
+          <li>Update Thrive Market and iHerb applications to include Blue Pill as second SKU</li>
+          <li>Send "Choose Your Format" email to all Phase 1 customers: Fizz vs. Blue Pill — here's the difference</li>
+          <li>Load the Blue Pill upsell Klaviyo sequence — triggers for all Blue Pill purchasers (Section 7)</li>
+          <li>Nootropics community: seed Blue Pill as "clean MB for the stacker who already supplements Vitamin C"</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="checklist">
+      <li>Phase 1 checkpoint: all 4 conditions evaluated</li>
+      <li>Blue Pill Shopify product page live and tested</li>
+      <li>Blue Pill Amazon second SKU added</li>
+      <li>Thrive Market / iHerb applications updated with Blue Pill SKU</li>
+      <li>"Choose Your Format" email sent to all Phase 1 customers</li>
+      <li>Blue Pill Klaviyo upsell sequence loaded and tested</li>
+    </ul>
+  </div>
+
+  <!-- WEEK 8 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge">WEEK 8 · DAYS 50–56</span>
+      <div><div class="week-title">Phase 2 Preparation</div></div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 50–52 — Women's Health Influencer List</div>
+      <div class="day-body">Search: #womenshealth #hormonehealth #brainfog #cleansupplement #functionalwellness #biohackingwomen. Target: women creating content about hormonal health, brain fog, clean energy. Follower range 5K–60K. Posted in last 30 days. Engagement above 3%.
+        <ul><li>Target: 30 women's health influencers identified and qualified</li></ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 52–54 — Phase 2 Landing Page</div>
+      <div class="day-body">
+        <ul>
+          <li>New URL. New headline. Same product. New voice. Full copy in Section 6.</li>
+          <li>New Klaviyo segment: Phase 2 list separate from Phase 1 list</li>
+          <li>Phase 2 welcome sequence loaded — SSRI disclosure prominent in Email 2</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Days 55–56 — Phase 2 Outreach Begins</div>
+      <div class="day-body">
+        <ul>
+          <li>First 15 Phase 2 influencer DMs sent</li>
+          <li>Lead with the white space angle: "No MB brand has ever marketed to women. We want to change that."</li>
+        </ul>
+      </div>
+    </div>
+
+    <ul class="checklist">
+      <li>Phase 1 checkpoint: all 4 conditions met</li>
+      <li>30 women's health influencers identified</li>
+      <li>Phase 2 landing page live</li>
+      <li>Phase 2 Klaviyo sequence loaded</li>
+      <li>First 15 Phase 2 DMs sent</li>
+    </ul>
+  </div>
+
+  <!-- WEEKS 9–10 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge green">WEEKS 9–10 · DAYS 57–70</span>
+      <div><div class="week-title">Both Phases Running</div></div>
+    </div>
+    <ul style="padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem;">
+      <li style="font-size:.87rem;line-height:1.6;">Phase 1 community engagement: reduced to 15 minutes daily maintenance</li>
+      <li style="font-size:.87rem;line-height:1.6;">Phase 2 content begins appearing — engage every comment personally</li>
+      <li style="font-size:.87rem;line-height:1.6;">Email list segmented: Defector list vs. Women's Health list — different voice in each</li>
+      <li style="font-size:.87rem;line-height:1.6;">Total influencer seeding spend stays within $750/month budget line</li>
+      <li style="font-size:.87rem;line-height:1.6;">Newsletter sponsorship: first placement goes live this week ($300 budget)</li>
+      <li style="font-size:.87rem;line-height:1.6;">Blue Pill upsell emails actively running — monitor open and upgrade rates</li>
+    </ul>
+  </div>
+
+  <!-- WEEKS 11–12 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge">WEEKS 11–12 · DAYS 71–84</span>
+      <div><div class="week-title">Paid Test + Scale</div></div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 71 — Paid Social Test</div>
+      <div class="day-body">Take the single best-performing organic content piece from Phase 1. Run it as a paid post with $300 test budget. Targeting: MB, nootropics, biohacking, cognitive performance. Age 28–52. Exclude site visitors.
+        <ul>
+          <li>CPC under $2 = scale to $500 / CPC over $2 = test second-best creative</li>
+          <li>Never boost cold content. Only amplify proven organic performers.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 75 — Amazon PPC (if 25+ reviews)</div>
+      <div class="day-body">
+        <ul>
+          <li>Activate Amazon PPC at $200/month test budget</li>
+          <li>Keywords: "methylene blue supplement," "clean methylene blue," "MB effervescent," "USP grade MB"</li>
+          <li>Evaluate ACoS — target under 30%</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="day-item">
+      <div class="day-label">Day 80 — Podcast Outreach</div>
+      <div class="day-body">
+        <ul>
+          <li>Approach Peak Performance Life, Optimal Performance, Boost Your Biology</li>
+          <li>Pitch: COA + subscription rate data + 3 customer testimonials + 30-day trial offer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 90 -->
+  <div class="week-block">
+    <div class="week-header">
+      <span class="week-badge gold">DAY 90 · FULL ASSESSMENT</span>
+      <div>
+        <div class="week-title">Pull every metric. What works gets more budget. What doesn't gets cut.</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Metric</th><th>Target</th><th>If Below Target</th></tr></thead>
+        <tbody>
+          <tr><td>Influencers seeded (total)</td><td>65+</td><td>Increase outreach volume in Month 4</td></tr>
+          <tr><td>Content pieces live</td><td>40+</td><td>Lower bar for Phase 2 influencer selection</td></tr>
+          <tr><td>Email list total</td><td>400–600</td><td>Review landing page conversion rate</td></tr>
+          <tr><td>Subscription rate</td><td>30%+</td><td>PRIORITY FIX — review product + messaging before scaling</td></tr>
+          <tr><td>Customers (all channels)</td><td>100–150</td><td>Review content angle and offer clarity</td></tr>
+          <tr><td>Amazon reviews</td><td>25+</td><td>Personal outreach to all customers again</td></tr>
+          <tr><td>Cost per email</td><td>Under $4</td><td>Review landing page headline and CTA</td></tr>
+          <tr><td>Phase 2 content live</td><td>15+</td><td>Accelerate Phase 2 influencer seeding</td></tr>
+          <tr><td>Blue Pill live (Shopify + Amazon)</td><td>Yes</td><td>Launch by Day 90 at latest — no further delay</td></tr>
+          <tr><td>Blue Pill upsell email open rate</td><td>35%+</td><td>Test subject line — current one is not working</td></tr>
+          <tr><td>Fizz upgrades from Blue Pill buyers</td><td>10%+ of Blue Pill buyers</td><td>Review upgrade email copy and offer strength</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 3 — AMAZON REVIEW MINING -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="amazon-mining">
+  <span class="section-tag tag-gold">SECTION 3</span>
+  <h2>Amazon Review Mining Brief</h2>
+
+  <div class="callout callout-navy">
+    <div class="callout-icon">📋</div>
+    <div><strong>Do this before writing a single word of marketing copy.</strong><p>The language dissatisfied customers use IS your copy. The exact words a dissatisfied MB customer uses to describe their frustration are the exact words that will convert the next dissatisfied MB customer into a LEUCO buyer.</p></div>
+  </div>
+
+  <h3>Where to Go — Filter 1, 2, and 3-Star Reviews Only</h3>
+  <ul style="padding-left:1.1rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;">
+    <li style="font-size:.9rem;">Troscriptions Blue Cannatine (MB + nicotine troche) — PRIORITY</li>
+    <li style="font-size:.9rem;">LVLUP Health Methylene Blue</li>
+    <li style="font-size:.9rem;">Meraki Medicinal Methylene Blue</li>
+    <li style="font-size:.9rem;">NooBlue Methylene Blue</li>
+  </ul>
+
+  <h3>Eight Complaint Categories to Tag</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Category</th><th>What to Look For</th><th>Your Response Copy</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Nicotine / Stimulant</strong></td><td>Nicotine, jitteriness, unwanted stimulant effects</td><td>"No nicotine. Clean formula. Always."</td></tr>
+        <tr><td><strong>Staining</strong></td><td>Mouth, teeth, clothing, toilet, glass staining</td><td>"No staining of mouth, teeth, or glass. Ever."</td></tr>
+        <tr><td><strong>Purity / Grade</strong></td><td>Industrial vs. pharmaceutical, what grade is this?</td><td>"USP pharmaceutical grade. COA published."</td></tr>
+        <tr><td><strong>Side Effects</strong></td><td>Headaches, nausea, discoloration not disclosed</td><td>"We tell you everything upfront."</td></tr>
+        <tr><td><strong>Transparency</strong></td><td>"Didn't warn me," "had to Google," "no information"</td><td>"Nothing hidden. Nothing undisclosed."</td></tr>
+        <tr><td><strong>Value</strong></td><td>Too expensive for the result delivered</td><td>"Subscribe and save — precision dose every time."</td></tr>
+        <tr><td><strong>Format</strong></td><td>Troche inconvenience, taste, staining, dissolve time</td><td>"Effervescent tablet. No troche. No staining."</td></tr>
+        <tr><td><strong>No Results</strong></td><td>Did not notice anything, doesn't work</td><td>"Watch it work in real time. The transformation is the proof."</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Time required: 3–4 hours. Do it once. Do it completely. It feeds every piece of marketing that follows.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 4 — COMMUNITY ENGAGEMENT PLAYBOOK -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="community">
+  <span class="section-tag tag-green">SECTION 4</span>
+  <h2>Community Engagement Playbook</h2>
+
+  <div class="quote-block">"You are not a brand in these communities. You are a knowledgeable person who happens to have built a product. The moment you sound like a marketer, you lose."</div>
+
+  <h3>The Engagement Ladder — Never Skip Steps</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Step</th><th>Days</th><th>Action</th><th>Rule</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 — Observe</strong></td><td>1–7</td><td>Read threads. Do not post.</td><td>Understand norms and tone before contributing anything</td></tr>
+        <tr><td><strong>2 — Contribute</strong></td><td>8–21</td><td>Answer questions. Add value. Zero product mentions.</td><td>Build recognition as a trusted voice first</td></tr>
+        <tr><td><strong>3 — Credibility</strong></td><td>15–30</td><td>Recognized name in MB threads. People upvote your responses.</td><td>You are now trusted</td></tr>
+        <tr><td><strong>4 — Introduce</strong></td><td>21+</td><td>When directly asked, mention LEUCO honestly.</td><td>Only when the question invites it</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Reddit — Primary Platform</h3>
+  <p>r/Nootropics (1.2M), r/Biohackers, r/supplements, r/StackAdvice. Monitor daily. Account: personal account, 30-day history, no brand name in display name or bio.</p>
+  <div class="callout callout-green">
+    <div class="callout-icon">💬</div>
+    <p><strong>When introducing LEUCO (only when directly asked):</strong><br>"I helped build one — LEUCO Methylene Blue Fizz by Peak State. Effervescent tablet, LEUCO form — you watch it convert in the glass. No nicotine, no staining. We publish our COA openly. Happy to share it if you want to evaluate."</p>
+  </div>
+  <p>Never name competitors. Never post the same comment in multiple threads. Never downvote competitors.</p>
+
+  <h3>Daily Monitoring — 20 Minutes Every Day</h3>
+  <ul class="checklist">
+    <li>Search "methylene blue" on r/Nootropics — respond to one new thread</li>
+    <li>Search "methylene blue" on r/Biohackers — respond if active</li>
+    <li>Check Discord servers for MB mentions</li>
+    <li>Check Instagram comments on Troscriptions most recent post</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 5 — PHASE 1 LANDING PAGE COPY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="lp-phase1">
+  <span class="section-tag tag-green">SECTION 5</span>
+  <h2>Phase 1 Landing Page Copy — The Troscriptions Defector</h2>
+  <p class="section-intro">Build this page before Day 1. It is the destination every influencer post, every community mention, and every TikTok video points to. Mobile-first. Email capture is the primary conversion, not purchase.</p>
+
+  <div class="copy-block">
+    <div class="copy-label">Headline</div>
+    <div class="copy-head">You Tried MB. Something Was Wrong With It.</div>
+    <div class="copy-sub">We heard you. No nicotine. No staining. Watch it convert to the bioactive form in real time. LEUCO Methylene Blue Fizz by Peak State — the way MB should have been built from the start.</div>
+    <div class="copy-label" style="margin-top:1rem;">Email CTA Button</div>
+    <strong style="color:var(--navy);">Get the Full Story + Our COA</strong>
+    <br><span style="font-size:.82rem;color:var(--muted);">We will send you our Certificate of Analysis immediately. No sales pitch. Just the facts.</span>
+  </div>
+
+  <h3>Three Differentiator Bullets</h3>
+
+  <div class="copy-block">
+    <div class="copy-label">Bullet 1 — The Fizz Ritual</div>
+    <strong style="color:var(--navy);">Watch It Work.</strong> Drop one tablet into 8–12 oz of water. Watch it transform from deep blue to vibrant green. That color change is LEUCO Methylene Blue being created in real time before your eyes. Visible proof of bioavailability. No other MB product can show you this.
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-label">Bullet 2 — No Staining. Ever.</div>
+    No staining of your mouth. No staining of your teeth. No staining of your glass. Our effervescent tablet format eliminates the staining that troches create entirely. Take it. Get on with your day.
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-label">Bullet 3 — Pharmaceutical Grade. Nothing Hidden.</div>
+    USP pharmaceutical grade — not industrial. Third-party tested. Certificate of Analysis published openly — not available upon request, not gated behind a form. You will receive it the moment you submit your email. Because you should never have to wonder what is in your supplement.
+  </div>
+
+  <h3>The Honest Section</h3>
+  <ul style="padding-left:1.1rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.5rem;">
+    <li style="font-size:.88rem;line-height:1.6;">The transformation from blue to green is normal. That color change is the LEUCO form being created. It is expected and it is the point.</li>
+    <li style="font-size:.88rem;line-height:1.6;">If you take SSRIs or MAOIs, consult your physician before use. Methylene blue has mild MAOI properties. This is a real interaction worth a real conversation with your doctor. We put it on the label. We put it here.</li>
+    <li style="font-size:.88rem;line-height:1.6;">Our COA is in your inbox the moment you submit your email.</li>
+  </ul>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 6 — PHASE 2 LANDING PAGE COPY -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="lp-phase2">
+  <span class="section-tag tag-gold">SECTION 6</span>
+  <h2>Phase 2 Landing Page Copy — Women's Health Biohackers</h2>
+  <p class="section-intro">Goes live at Day 50. Separate URL. Separate Klaviyo segment. Different voice, same product, same COA.</p>
+
+  <div class="copy-block">
+    <div class="copy-label">Headline</div>
+    <div class="copy-head">The MB Supplement Built for Women Who Read the Label</div>
+    <div class="copy-sub">No stimulants. No nicotine. No staining — not your mouth, not your teeth, not your glass. Watch it work in real time. LEUCO Methylene Blue Fizz by Peak State — pharmaceutical grade, for the woman who takes her health as seriously as everything else she manages.</div>
+    <div class="copy-label" style="margin-top:1rem;">CTA Button</div>
+    <strong style="color:var(--navy);">Get Our Full Formulation Story + COA</strong>
+    <br><span style="font-size:.82rem;color:var(--muted);">Certificate of Analysis sent immediately. Because you asked, and you should have it.</span>
+  </div>
+
+  <h3>Three Differentiator Bullets — Phase 2 Voice</h3>
+
+  <div class="copy-block">
+    <div class="copy-label">Bullet 1 — Clean Energy. No Interference.</div>
+    No stimulants. No caffeine. No nicotine. No hormonal interference. LEUCO Methylene Blue supports mitochondrial function and reduces oxidative stress — clean fuel that works with your biology, not against it.
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-label">Bullet 2 — Watch It Work.</div>
+    Drop one tablet into water. Watch it transform from deep blue to vibrant green. That transformation is LEUCO Methylene Blue being created in real time — visible proof that the bioavailability technology is working. No other MB product can show you this.
+  </div>
+
+  <div class="copy-block">
+    <div class="copy-label">Bullet 3 — Pharmaceutical Grade. Nothing Hidden.</div>
+    USP pharmaceutical grade. Third-party tested. COA published and in your inbox the moment you submit your email. If you read labels, this is the MB supplement that meets your standard.
+  </div>
+
+  <div class="callout callout-gold">
+    <div class="callout-icon">⚕️</div>
+    <p><strong>The SSRI Disclosure — Phase 2 Voice</strong><br>"If you take SSRIs or antidepressants, talk to your physician before starting MB. Women are prescribed SSRIs at nearly twice the rate of men. This is not a reason to avoid LEUCO — it is a reason to have a short, informed conversation with your doctor first. We put this on our label."</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 7 — EMAIL SEQUENCES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="emails">
+  <span class="section-tag tag-green">SECTION 7</span>
+  <h2>Email Welcome Sequences</h2>
+
+  <!-- PHASE 1 -->
+  <h3>Phase 1 Welcome Sequence — The Troscriptions Defector</h3>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">1</div><div class="email-title">Sent Immediately on Submit</div></div>
+    <div class="email-subject">Subject: Here is why we built LEUCO.</div>
+    <div class="email-body">[First name],
+
+The COA is attached. Here is what you are looking at: USP pharmaceutical grade methylene blue in effervescent tablet form — powered by Deeper Green™ technology that converts the standard oxidized form to LEUCO, the bioactive reduced form, right in the glass. You can watch it happen.
+
+We built this because the MB market had a problem. The products getting the most attention were making compromises the community noticed. Nicotine that was not needed. Staining that was not disclosed. Formulations that prioritized marketing over mechanism.
+
+So we removed all of it. What remains: LEUCO Methylene Blue Fizz. Effervescent. Pharmaceutical grade. No nicotine. No staining. The transformation you can see.
+
+If you have questions about the formulation — especially if you are on any medications — reply to this email. I read every one.
+
+[Your name] | Peak State</div>
+  </div>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">2</div><div class="email-title">Day 3</div></div>
+    <div class="email-subject">Subject: Three questions nobody else answers about methylene blue.</div>
+    <div class="email-body">[First name],
+
+Three questions that are hard to get straight answers on.
+
+Will the water turn green? Yes. That is the Fizz Ritual working — the Deeper Green™ process converts standard MB to LEUCO in real time. The color shift from deep blue to vibrant green is visible proof of the conversion.
+
+Can I take it with my antidepressant? If you are on an SSRI or MAOI, talk to your physician first. Methylene blue has mild MAOI properties and the interaction is real. This is a five-minute conversation with your doctor — not a reason to avoid MB, but a reason to have that conversation before you start.
+
+How do I know the grade? The COA from Email 1 tells you exactly — USP pharmaceutical grade, third-party tested batch by batch. If a brand will not show you their COA on demand, that tells you something.
+
+[Your name]</div>
+  </div>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">3</div><div class="email-title">Day 10</div></div>
+    <div class="email-subject">Subject: Ready when you are.</div>
+    <div class="email-body">[First name],
+
+You now have the COA, the formulation story, and honest answers to the hard questions.
+
+One-time: [price TBD] | Subscribe and save: [price TBD] per month — cancel anytime, no games
+
+Most people start with a single order to evaluate. A meaningful number subscribe after that. We think that is because the product does what it says.
+
+[Shop LEUCO Methylene Blue Fizz]
+
+[Your name]</div>
+  </div>
+
+  <!-- BLUE PILL SEQUENCE -->
+  <h3>Blue Pill Purchase Sequence — The Upgrade Path to Fizz</h3>
+  <div class="callout callout-gold">
+    <div class="callout-icon">💊</div>
+    <p>Every Blue Pill buyer gets this sequence. The goal: introduce the Fizz Ritual, explain the Vitamin C difference, offer the upgrade. Present — don't push.</p>
+  </div>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">1</div><div class="email-title">Immediately Post-Purchase</div></div>
+    <div class="email-subject">Subject: Your LEUCO Blue Pill is on its way.</div>
+    <div class="email-body">[First name],
+
+Order confirmed. Ships within 24 hours.
+
+While you wait — have you seen what the Fizz does? Same LEUCO. Same pharmaceutical grade. Same Deeper Green™ technology. But the Fizz comes with Vitamin C built in, and it transforms in the glass before you drink it. Watch it here: [Fizz Ritual video link]
+
+You ordered the Blue Pill — the clean format, no extras. That is the right call if you already run your own Vitamin C stack. If you ever want to simplify: the Fizz has everything in one tablet.
+
+Questions? Reply here.
+
+[Your name] | Peak State</div>
+  </div>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">2</div><div class="email-title">Day 14 Post-Purchase</div></div>
+    <div class="email-subject">Subject: What are you noticing with LEUCO?</div>
+    <div class="email-body">[First name],
+
+Two weeks in — how is it going? Reply and tell me. I read every one.
+
+A lot of our Blue Pill users stack it with their own Vitamin C — exactly what it was designed for. If you want Vitamin C integrated and the full Fizz Ritual, the Fizz version is there when you want it.
+
+[Your name]</div>
+  </div>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">3</div><div class="email-title">Day 30 Post-Purchase — The Upgrade Offer</div></div>
+    <div class="email-subject">Subject: Ready to try the full LEUCO experience?</div>
+    <div class="email-body">[First name],
+
+You have been on LEUCO for 30 days. Here is something you might not have tried yet.
+
+The Fizz. Same LEUCO. Same Deeper Green™ technology. Same pharmaceutical grade. But it has Vitamin C built in, and you can watch it convert from deep blue to vibrant green in the glass. It is a different experience.
+
+If you want to try it: [discount offer — $X off your first Fizz order]. Valid for the next 7 days.
+
+Or — if the Blue Pill is exactly right for your stack, reorder here: [reorder link]
+
+Both are LEUCO. Both work. The question is which format fits how you live.
+
+[Your name]</div>
+  </div>
+
+  <!-- PHASE 2 SEQUENCE -->
+  <h3>Phase 2 Welcome Sequence — Women's Health Biohackers</h3>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">1</div><div class="email-title">Sent Immediately</div></div>
+    <div class="email-subject">Subject: The MB category forgot about you. We did not.</div>
+    <div class="email-body">[First name],
+
+COA is attached.
+
+Here is something we noticed when we researched the MB market: every brand, every ad, every influencer talking about methylene blue was talking to men. Women — who purchase the majority of supplements sold in this country, who are more rigorous about what goes into their bodies — were completely ignored.
+
+We built LEUCO Methylene Blue Fizz with that in mind. No stimulants. No nicotine. No staining. Pharmaceutical grade. And you can watch it work: the tablet transforms from deep blue to vibrant green in real time. That color change is the Fizz Ritual — visible proof of the bioavailability technology working.
+
+If you have questions — especially about interactions with any medications — reply here. I read every email.
+
+[Your name] | Peak State</div>
+  </div>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">2</div><div class="email-title">Day 3</div></div>
+    <div class="email-subject">Subject: The honest answer about MB and medications.</div>
+    <div class="email-body">[First name],
+
+Women are prescribed SSRIs and antidepressants at nearly twice the rate of men. So this email matters more for you than for almost any other LEUCO reader.
+
+Methylene blue has mild MAOI properties. If you are on an SSRI, SNRI, or MAOI — talk to your physician before starting MB. This is not a reason to avoid the product. It is a reason to have a short, informed conversation with your doctor first.
+
+We put this on our label. We put it in our emails. Because you deserve a fully informed decision.
+
+[Your name]</div>
+  </div>
+
+  <div class="email-block">
+    <div class="email-header"><div class="email-num">3</div><div class="email-title">Day 10</div></div>
+    <div class="email-subject">Subject: Here is what other women are noticing.</div>
+    <div class="email-body">[First name],
+
+[INSERT 2–3 testimonials from Phase 1 customers here]
+
+Subscribe and save: [price TBD] per month | One-time: [price TBD]
+
+[Shop LEUCO Methylene Blue Fizz]
+
+No pressure. No timers. The product will be here when you are ready.
+
+[Your name]</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 8 — INFLUENCER BRIEF -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="influencer-brief">
+  <span class="section-tag tag-gold">SECTION 8</span>
+  <h2>One-Page Influencer Brief</h2>
+  <p class="section-intro">Print this. Include it in every product shipment. One page. Nothing more.</p>
+
+  <div class="copy-block">
+    <div class="copy-label">Header</div>
+    <div class="copy-head">LEUCO METHYLENE BLUE FIZZ by Peak State</div>
+    <div class="copy-sub">Powered by Deeper Green™  |  Precision Energy. Controlled State.</div>
+
+    <div class="copy-label" style="margin-top:1.1rem;">What You Have</div>
+    One box of LEUCO Methylene Blue Fizz. 10mg per tablet. Effervescent fizz format. USP pharmaceutical grade. Powered by Deeper Green™ technology.
+
+    <div class="copy-label" style="margin-top:1rem;">The Fizz Ritual — Try This First</div>
+    Drop one tablet into 8–12 oz of water. Watch it fizz. Watch it transform from deep blue to vibrant green. That transformation is LEUCO — the bioactive, reduced form of methylene blue — being created in real time. That is the technology. That is the differentiator. That is the content moment.
+
+    <div class="copy-label" style="margin-top:1rem;">What Makes This Different From Every Other MB Product</div>
+    <ul style="padding-left:1.1rem;margin-top:.4rem;display:flex;flex-direction:column;gap:.35rem;">
+      <li style="font-size:.86rem;">Effervescent format — the only one in the category. The Fizz Ritual is the proof.</li>
+      <li style="font-size:.86rem;">LEUCO form — faster absorption, higher bioavailability than standard MB</li>
+      <li style="font-size:.86rem;">No staining. Ever. Not your mouth, not your teeth, not your glass.</li>
+      <li style="font-size:.86rem;">No nicotine. No stimulants. No unnecessary additives.</li>
+      <li style="font-size:.86rem;">USP pharmaceutical grade. COA available at: [website URL]</li>
+    </ul>
+
+    <div class="copy-label" style="margin-top:1rem;">What We Are Asking</div>
+    Nothing scripted. No required timeline. Post your honest reaction — good, bad, or indifferent — if and when you want to. Film the Fizz Ritual if you can. That 15-second transformation is the most compelling thing in the MB category right now.
+
+    <div class="copy-label" style="margin-top:1rem;">One Thing</div>
+    If you post, please note that you received the product from us. Your audience trusts you because you are transparent. We want to keep it that way.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- SECTION 9 — WEBSITE SPEC -->
+<!-- ═══════════════════════════════════════════════════ -->
+<section id="website-spec">
+  <span class="section-tag tag-green">SECTION 9</span>
+  <h2>Website Build Specification</h2>
+
+  <div class="callout callout-red">
+    <div class="callout-icon">🔴</div>
+    <p>The website must be live before Day 1 of marketing. Everything points here. If the site is not ready, nothing else launches.</p>
+  </div>
+
+  <p><strong>Platform: Shopify.</strong> Handles D2C subscription, TikTok Shop integration, Amazon channel sync, Shopify Collabs affiliate program, and Klaviyo email integration — all from one platform.</p>
+
+  <h3>Page Priority Order</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Page</th><th>Priority</th><th>Must-Have Element</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Home / Product Page (Fizz)</strong></td><td>Day 1</td><td>Fizz Ritual video above fold, subscribe-and-save as primary CTA</td></tr>
+        <tr><td><strong>Phase 1 Landing Page</strong></td><td>Day 1</td><td>Email capture, COA on submit, defector-targeted copy (Section 5)</td></tr>
+        <tr><td><strong>COA Page</strong></td><td>Day 1</td><td>Downloadable COA PDF — publicly accessible, not gated</td></tr>
+        <tr><td><strong>FAQ Page</strong></td><td>Day 1</td><td>SSRI disclosure, urine color, grade explanation, ritual explanation</td></tr>
+        <tr><td><strong>About / Brand Page</strong></td><td>Week 2</td><td>Peak State story, Deeper Green™ technology (proprietary — no mechanism)</td></tr>
+        <tr><td><strong>Blue Pill Product Page</strong></td><td>Day 45–60</td><td>"Choose Your Format" positioning — cross-link to Fizz, Blue Pill upsell sequence triggers on purchase</td></tr>
+        <tr><td><strong>Phase 2 Landing Page</strong></td><td>Day 50</td><td>Women's health voice — separate URL and Klaviyo segment</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Product Page Must-Have Checklist</h3>
+  <ul class="checklist">
+    <li>Fizz Ritual video above the fold — tablet drops, transforms blue to green, 15–30 seconds</li>
+    <li>Subscribe and save is the primary CTA — one-time purchase is secondary</li>
+    <li>No Staining guarantee — specific: mouth, teeth, glass</li>
+    <li>LEUCO vs. Regular MB comparison — clear, visual, plain language</li>
+    <li>COA link — opens the actual document, not a contact form</li>
+    <li>SSRI/MAOI disclosure — visible, not buried in fine print</li>
+    <li>Blue-to-green color change explained — preempts confusion, builds trust</li>
+    <li>Powered by Deeper Green™ — proprietary technology badge, no mechanism disclosed</li>
+    <li>FDA disclaimer on every page</li>
+    <li>Mobile-first — majority of traffic will be from mobile via influencer posts</li>
+  </ul>
+
+  <h3>Klaviyo Integration</h3>
+  <ul style="padding-left:1.1rem;display:flex;flex-direction:column;gap:.4rem;">
+    <li style="font-size:.88rem;">Phase 1 capture form → triggers Phase 1 welcome sequence (Section 7)</li>
+    <li style="font-size:.88rem;">Phase 2 capture form → triggers Phase 2 welcome sequence (Section 7)</li>
+    <li style="font-size:.88rem;">Blue Pill purchase → triggers Blue Pill upgrade sequence (Section 7)</li>
+    <li style="font-size:.88rem;">Post-purchase flow: confirmation + Day 7 review request + Day 30 reorder reminder</li>
+    <li style="font-size:.88rem;">Subscription renewal reminder 3 days before charge</li>
+  </ul>
+
+  <div style="margin-top:2.5rem;text-align:center;">
+    <a href="marketing-plan.html" style="display:inline-block;background:var(--navy);color:#FFD54F;text-decoration:none;padding:.85rem 2rem;border-radius:6px;font-weight:700;font-size:.9rem;letter-spacing:.04em;">← Back to the Marketing Plan</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>LEUCO Methylene Blue Fizz by Peak State</strong> · Powered by Deeper Green™ · <strong>Horsepower AI</strong> · Confidential · May 2026<br>
+  <div class="footer-legal">These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure, or prevent any disease.</div>
+</footer>
+
+</body>
+</html>
