@@ -29,8 +29,7 @@
       box-shadow: 0 1px 0 rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.06);
       min-height: 60px;
     }
-    .nav-brand { color: var(--navy); font-size: 1.05rem; font-weight: 800; letter-spacing: .08em; }
-    .nav-brand span { color: var(--gold); }
+    .nav-brand { display: flex; align-items: center; padding: .4rem 0; }
     .nav-links { display: flex; gap: .15rem; flex-wrap: wrap; }
     .nav-links a {
       color: var(--navy); text-decoration: none; font-size: .78rem; font-weight: 600;
@@ -212,7 +211,7 @@
 
 <!-- NAV -->
 <nav id="main-nav">
-  <div class="nav-brand">MB<span>-REVIEW</span></div>
+  <div class="nav-brand"><img src="GFTECH1%20LOGO.jpg" alt="GF Tech One" style="height:42px;"></div>
   <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
